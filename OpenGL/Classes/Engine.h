@@ -2,6 +2,8 @@
 #include <GL\glew.h>
 #include <glfw3.h>
 
+#include <MainRenderer.h>
+
 //This class may have to be abstract.
 class Engine
 {

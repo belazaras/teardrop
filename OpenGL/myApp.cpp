@@ -16,7 +16,6 @@ void myApp::setup()
 void myApp::render()
 {
 	printf("Rendering...\n");
-	Cube->getComponent<Renderer>()->render(); //Hermoso, pero se tendría que llamar automáticamente?
 }
 
 void myApp::clean()

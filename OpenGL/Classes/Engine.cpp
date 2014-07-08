@@ -37,8 +37,10 @@ int Engine::run()
     while (!glfwWindowShouldClose(window))
     {
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		MainRenderer::getInstance()->notify_render();
         /* Render hook-up */
-		this->render();
+		this->render(); // Is it necessary?
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

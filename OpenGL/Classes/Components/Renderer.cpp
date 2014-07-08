@@ -1,9 +1,14 @@
 #include "Renderer.h"
+
+// Included here to avoid circular dependencies.
 #include <GameObject.h>
+#include <MainRenderer.h>
 
 Renderer::Renderer(GameObject *go)
 {
 	this->parent = go;
+
+	MainRenderer::getInstance()->attach(this);
 
 	//TESTING:
 	material = new Material();
