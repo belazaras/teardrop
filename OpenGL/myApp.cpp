@@ -11,11 +11,18 @@ void myApp::setup()
 	Cube = new GameObject();
 	Renderer *myRender = Cube->addComponent<Renderer>();
 	Mesh *myMesh = Cube->addComponent<Mesh>();
+
+	GameObject *SuperCam = new GameObject();
+	SuperCam->getComponent<Transform>()->setPosition(4, 3, 3);
+	Camera *myCam = SuperCam->addComponent<Camera>();
+	if (Camera::current())
+		printf("Hay Camera");
+	
 }
 
 void myApp::render()
 {
-	printf("Rendering...\n");
+	//printf("Rendering...\n");
 }
 
 void myApp::clean()

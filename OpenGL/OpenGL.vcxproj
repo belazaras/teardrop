@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Component.h" />
+    <ClInclude Include="Classes\Components\Camera.h" />
     <ClInclude Include="Classes\Components\Mesh.h" />
     <ClInclude Include="Classes\Components\Renderer.h" />
     <ClInclude Include="Classes\Components\Transform.h" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Component.cpp" />
+    <ClCompile Include="Classes\Components\Camera.cpp" />
     <ClCompile Include="Classes\Components\Mesh.cpp" />
     <ClCompile Include="Classes\Components\Renderer.cpp" />
     <ClCompile Include="Classes\Components\Transform.cpp" />

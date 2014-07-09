@@ -7,7 +7,6 @@ using namespace std;
 class MainRenderer
 {
 private:
-
 	// Singleton instance:
 	static MainRenderer *instance;
 

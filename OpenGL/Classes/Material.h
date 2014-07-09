@@ -8,9 +8,12 @@ class Material
 {
 private:
 	vec3 color;
-	Shader *shader;
+	//Shader *shader;
 public:
 	Material();
 	~Material();
+
+	//BORRAR
+	Shader *shader;
 };
 

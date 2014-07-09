@@ -9,6 +9,11 @@ Shader::~Shader()
 {
 }
 
+GLuint Shader::getProgramID()
+{
+	return program;
+}
+
 void Shader::load(char *vs_path, char *fs_path)
 {
 	GLuint vs;
@@ -35,9 +40,11 @@ GLuint Shader::load(const char * filename, GLenum shader_type, bool check_errors
 
 	fp = fopen(filename, "rb");
 
-	if (!fp)
+	if (!fp) {
+		printf("Can't read the file: %s.", filename);
 		return 0;
-
+	}
+		
 	fseek(fp, 0, SEEK_END);
 	filesize = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
