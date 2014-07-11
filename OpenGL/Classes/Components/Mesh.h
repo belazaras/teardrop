@@ -10,9 +10,11 @@ class Mesh :
 private:
 	GLuint vertexArrayID;
 	GLuint vertexBuffer;
+	GLuint uvData; // Beta
 public:
 	Mesh(GameObject *go);
 	~Mesh();
 	GLuint getVertexBuffer(); // Beta
+	GLuint getUVData(); // Beta
 };
 

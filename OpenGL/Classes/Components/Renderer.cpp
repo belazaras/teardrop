@@ -45,6 +45,19 @@ void Renderer::render()
 			(void*)0            // array buffer offset
 			);
 
+		GLuint UVCoords = mesh->getUVData();
+
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, UVCoords);
+		glVertexAttribPointer(
+			1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+			2,                  // size
+			GL_FLOAT,           // type
+			GL_FALSE,           // normalized?
+			0,                  // stride
+			(void*)0            // array buffer offset
+			);
+
 		// Beta
 		GLuint pID = this->material->shader->getProgramID();
 		glUseProgram(pID);
@@ -54,7 +67,7 @@ void Renderer::render()
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+		glDrawArrays(GL_TRIANGLES, 0, 12*3); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
 		glDisableVertexAttribArray(0);
 	}	
