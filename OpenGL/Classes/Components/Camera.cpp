@@ -21,7 +21,7 @@ Camera::Camera(GameObject *go)
 	Transform *t = this->parent->getComponent<Transform>();
 	this->viewMatrix = glm::lookAt(
 		t->getPosition(),   //Get position from the Transform of the same GO.
-		glm::vec3(0, 0, 0), // Beta
+		t->getDirection(), // Beta
 		t->getUp()  //Get up dir from the Transform of the same GO.
 		);
 

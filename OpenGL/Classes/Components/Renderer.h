@@ -7,14 +7,11 @@ class Renderer :
 	public Component
 {
 private:
-	Material *material;
-	//GLuint vertexBuffer;
-	
+	Material *material;	
 public:
 	bool enabled;
 	Renderer(GameObject *go);
 	~Renderer();
-	//beta
 	void render();
 };
 

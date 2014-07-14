@@ -13,6 +13,6 @@ public:
 	Shader();
 	~Shader();
 	void load(char *vs_path, char *fs_path);
-	GLuint getProgramID(); //Rinde?
+	GLuint getProgramID();
 };
 

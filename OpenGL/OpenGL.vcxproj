@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\tiny\tiny_obj_loader.h" />
     <ClInclude Include="Classes\Component.h" />
     <ClInclude Include="Classes\Components\Camera.h" />
     <ClInclude Include="Classes\Components\Mesh.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="myApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\tiny\tiny_obj_loader.cc" />
     <ClCompile Include="Classes\Component.cpp" />
     <ClCompile Include="Classes\Components\Camera.cpp" />
     <ClCompile Include="Classes\Components\Mesh.cpp" />
