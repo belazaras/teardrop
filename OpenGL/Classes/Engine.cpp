@@ -60,3 +60,13 @@ int Engine::run()
     glfwTerminate();
 	return 0;
 }
+
+float Engine::deltaTime()
+{
+	static double lastTime = glfwGetTime();
+	double currentTime = glfwGetTime();
+	float deltaTime = float(currentTime - lastTime);
+	lastTime = currentTime;
+
+	return deltaTime;
+}

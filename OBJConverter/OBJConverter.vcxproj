@@ -11,24 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FE0CA8AC-304B-429C-9A5D-EA97C45F725A}</ProjectGuid>
+    <ProjectGuid>{7813A3F1-7CBD-4630-A81A-69A7FBC4F9FE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OpenGL</RootNamespace>
-    <ProjectName>Engine</ProjectName>
+    <RootNamespace>OBJConverter</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -42,8 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)include\glew-1.10.0\include;$(SolutionDir)OpenGL\Classes\Components;$(SolutionDir)OpenGL\Classes;$(SolutionDir)include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)include\glew-1.10.0\lib;$(SolutionDir)include;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -54,12 +52,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;glu32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -70,7 +68,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -81,37 +80,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\tiny\tiny_obj_loader.h" />
-    <ClInclude Include="Classes\Component.h" />
-    <ClInclude Include="Classes\Components\Camera.h" />
-    <ClInclude Include="Classes\Components\Mesh.h" />
-    <ClInclude Include="Classes\Components\Renderer.h" />
-    <ClInclude Include="Classes\Components\Script.h" />
-    <ClInclude Include="Classes\Components\Transform.h" />
-    <ClInclude Include="Classes\Engine.h" />
-    <ClInclude Include="Classes\FPSController.h" />
-    <ClInclude Include="Classes\GameObject.h" />
-    <ClInclude Include="Classes\MainRenderer.h" />
-    <ClInclude Include="Classes\Material.h" />
-    <ClInclude Include="Classes\Shader.h" />
-    <ClInclude Include="Classes\Texture.h" />
-    <ClInclude Include="myApp.h" />
+    <ClInclude Include="OBJConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\tiny\tiny_obj_loader.cc" />
-    <ClCompile Include="Classes\Component.cpp" />
-    <ClCompile Include="Classes\Components\Camera.cpp" />
-    <ClCompile Include="Classes\Components\Mesh.cpp" />
-    <ClCompile Include="Classes\Components\Renderer.cpp" />
-    <ClCompile Include="Classes\Components\Script.cpp" />
-    <ClCompile Include="Classes\Components\Transform.cpp" />
-    <ClCompile Include="Classes\Engine.cpp" />
-    <ClCompile Include="Classes\FPSController.cpp" />
-    <ClCompile Include="Classes\GameObject.cpp" />
-    <ClCompile Include="Classes\MainRenderer.cpp" />
-    <ClCompile Include="Classes\Material.cpp" />
-    <ClCompile Include="Classes\Shader.cpp" />
-    <ClCompile Include="Classes\Texture.cpp" />
-    <ClCompile Include="myApp.cpp" />
+    <ClCompile Include="OBJConverter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

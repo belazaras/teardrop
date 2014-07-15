@@ -8,10 +8,12 @@ void myApp::setup()
 
 	glClearColor(40 / 255.0, 40 / 255.0, 40 / 255.0, 1); // Medio ilegal aca :P
 
+	fps = new FPSController();
+
 	Cube = new GameObject();
 	Renderer *myRender = Cube->addComponent<Renderer>();
 	Mesh *myMesh = Cube->addComponent<Mesh>();
-	myMesh->loadOBJ("media/models/cube/cube-uv.obj");
+	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
 
 	const int cantX = 5;
 	const int cantY = 5;
@@ -24,7 +26,7 @@ void myApp::setup()
 			gOs[i][j] = new GameObject();
 			gOs[i][j]->getComponent<Transform>()->setPosition(j * 2.5, i * 2.5, 0);
 			gOs[i][j]->addComponent<Renderer>();
-			gOs[i][j]->addComponent<Mesh>()->loadOBJ("media/models/cube/cube-uv.obj");
+			gOs[i][j]->addComponent<Mesh>()->loadCOBJ("media/models/cube/cube-uv.cobj");
 		}	
 	}
 
@@ -40,6 +42,8 @@ void myApp::setup()
 void myApp::render()
 {
 	//printf("Rendering...\n");
+	fps->update();
+	printf("Delta time: %f\n", Engine::deltaTime());
 }
 
 void myApp::clean()

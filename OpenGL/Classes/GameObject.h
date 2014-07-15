@@ -3,6 +3,7 @@
 #include <Renderer.h>
 #include <Mesh.h>
 #include <Camera.h>
+#include <Script.h>
 
 class GameObject
 {

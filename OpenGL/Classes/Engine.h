@@ -13,6 +13,7 @@ public:
 	virtual void clean(){};
 	virtual void setup(){};
 	virtual void on_key(int key,int action){}; // It's not being used at the moment.
+	static float deltaTime();
 };
 
 #define DECLARE_MAIN(a)                             \

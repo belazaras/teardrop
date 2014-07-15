@@ -6,7 +6,6 @@ Mesh::Mesh(GameObject *go)
 	this->parent = go;
 }
 
-
 Mesh::~Mesh()
 {
 }
@@ -33,10 +32,86 @@ int Mesh::loadOBJ(std::string inputfile)
 		return -1;
 	}
 
+	printf("Shape name: %s\n", shapes[0].name.c_str());
+	printf("# of vertices : %i\n", shapes[0].mesh.positions.size() / 3);
+
+	this->setUpVao();
+
+	return 0;
+}
+
+int Mesh::loadCOBJ(std::string inputfile)
+{
+	// Thanks to Roald Fernandez from SwarmingLogic for the binary loader/writer.
+
+	// Variables for time measuring.
+	clock_t begin, end;
+	int ms_spent;
+
+	// Binary file.
+	std::ifstream stream(inputfile, std::ios::in | std::ios::binary);
+
+	if (stream) // Doesn't work properly, fix it.
+	{
+		assert(sizeof(float) == sizeof(uint32));
+		const auto sz = sizeof(uint32);
+
+		begin = clock();
+
+		// Reading the binary:
+		uint32 nMeshes = 0;
+		uint32 nMatProperties = 0;
+
+		// Find out meshes and materials count.
+		stream.read((char*)&nMeshes, sz);
+		stream.read((char*)&nMatProperties, sz);
+
+		//Resize the vector shapes.
+		shapes.resize(nMeshes);
+		for (size_t i = 0; i < nMeshes; ++i) {
+			uint32 nVertices = 0, nNormals = 0, nTexcoords = 0, nIndices = 0;
+
+			// For each mesh find out the number of vertex, normals, etc.
+			stream.read((char*)&nVertices, sz);
+			stream.read((char*)&nNormals, sz);
+			stream.read((char*)&nTexcoords, sz);
+			stream.read((char*)&nIndices, sz);
+
+			// Resize accordingly.
+			shapes[i].mesh.positions.resize(nVertices);
+			shapes[i].mesh.normals.resize(nNormals);
+			shapes[i].mesh.texcoords.resize(nTexcoords);
+			shapes[i].mesh.indices.resize(nIndices);
+
+			// Read every chunk of data.
+			stream.read((char*)&shapes[i].mesh.positions[0], nVertices  * sz);
+			stream.read((char*)&shapes[i].mesh.normals[0], nNormals   * sz);
+			stream.read((char*)&shapes[i].mesh.texcoords[0], nTexcoords * sz);
+			stream.read((char*)&shapes[i].mesh.indices[0], nIndices   * sz);
+			stream.read((char*)&shapes[i].material.ambient[0], 3 * sz);
+		}
+
+		// Calculate loading time.
+		end = clock();
+		ms_spent = (double)(end - begin) / CLOCKS_PER_SEC * 1000;
+		printf("Mesh loading: %i ms.\n", ms_spent);
+
+		// Call to set up VAO and VBOs.
+		this->setUpVao();
+		return 0;
+	}
+	else
+	{
+		printf("Error reading file %s. Wrong name?", inputfile);
+	}	
+}
+
+void Mesh::setUpVao()
+{
 	//Generate and bind a VAO that holds the buffers state and bindings.
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-	
+
 	// Generate, bind and load a buffer for the vertices.
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -76,20 +151,17 @@ int Mesh::loadOBJ(std::string inputfile)
 
 	//Unbind the vao so nobody messes with it.
 	glBindVertexArray(0);
-
-	printf("Shape name: %s\n", shapes[0].name.c_str());
-	printf("# of vertices : %i\n", shapes[0].mesh.positions.size() / 3);
-
-	return 0;
 }
 
 int Mesh::getIndexCount()
 {
+	// Get indices count.
 	return shapes[0].mesh.indices.size();
 }
 
 void Mesh::clean()
 {
+	// Delete every VBO and the VAO.
 	glDeleteBuffers(1, &indexBuffer);
 	glDeleteBuffers(1, &uvBuffer);
 	glDeleteBuffers(1, &vertexBuffer);

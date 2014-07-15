@@ -3,7 +3,6 @@
 #include <Component.h>
 #include <iostream>
 #include <tiny\tiny_obj_loader.h>
-
 #include <time.h>
 
 class GameObject;
@@ -18,6 +17,7 @@ private:
 	GLuint indexBuffer;
 	GLuint vertexBuffer;
 	GLuint uvBuffer;
+	void setUpVao();
 public:
 	Mesh(GameObject *go);
 	~Mesh();
@@ -26,6 +26,7 @@ public:
 	//GLuint getIndexBufferID();
 	GLuint getVAO();
 	int loadOBJ(std::string inputfile);
+	int loadCOBJ(std::string inputfile);
 	int getIndexCount();
 	void clean();
 };

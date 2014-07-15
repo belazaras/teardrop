@@ -15,7 +15,7 @@
 // version 0.9.1: Add initial .mtl load support
 // version 0.9.0: Initial
 //
-
+#define _CRT_SECURE_NO_WARNINGS 1
 
 #include <cstdlib>
 #include <cstring>

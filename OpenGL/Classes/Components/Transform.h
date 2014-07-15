@@ -12,6 +12,7 @@ private:
 	mat4 modelMatrix;
 	vec3 *position;
 	vec3 *direction; //Ver si no es rotation.
+	quat *rotation; // Beta
 	vec3 *up;
 public:
 	Transform();
