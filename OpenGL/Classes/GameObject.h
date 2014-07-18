@@ -5,6 +5,8 @@
 #include <Camera.h>
 #include <Script.h>
 
+//class Script;
+
 class GameObject
 {
 private:
@@ -12,6 +14,7 @@ private:
 	Renderer *renderer;
 	Mesh *mesh;
 	Camera *camera;
+	std::vector<Script*> scripts;
 public:
 	GameObject();
 	~GameObject();
@@ -22,4 +25,3 @@ public:
 	template <class T>
 	T* getComponent();
 };
-

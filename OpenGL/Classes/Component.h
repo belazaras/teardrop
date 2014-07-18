@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class GameObject;
 
@@ -10,4 +11,5 @@ public:
 	Component();
 	~Component();
 };
+
 

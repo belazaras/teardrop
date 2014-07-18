@@ -8,8 +8,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 int Engine::run()
 {
-	GLFWwindow* window;
-
 	/* Initialize the library */
     if (!glfwInit())
         return -1;
@@ -35,6 +33,8 @@ int Engine::run()
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
+	Input::setWindow(window);
+
 	/* Setup hook-up */
 	this->setup();
 
@@ -44,6 +44,11 @@ int Engine::run()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		MainRenderer::getInstance()->notify_render();
+
+		// If there is a camera, update it's matrices.
+		if (Camera::current())
+			Camera::current()->update();
+
         /* Render hook-up */
 		this->render(); // Is it necessary?
 

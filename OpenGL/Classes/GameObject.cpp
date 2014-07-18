@@ -47,3 +47,23 @@ template<> Transform* GameObject::getComponent()
 {
 	return transform;
 }
+
+//template <class T>
+//template<> T* GameObject::getComponent()
+//{
+//	T *myS = dynamic_cast<T*> (scripts[0]);
+//	return myS;
+//}
+
+/*template <class T>
+T* GameObject::addComponent()
+{
+	T *t = new T(this);
+	Script *s = dynamic_cast<Script*> (&t);
+	if (s)
+	{
+		scripts.push_back(t);
+		return t;
+	}
+	return nullptr; 
+}*/	

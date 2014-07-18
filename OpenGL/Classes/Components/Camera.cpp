@@ -18,12 +18,8 @@ Camera::Camera(GameObject *go)
 	Camera::instances.push_back(this);
 
 	//Setting up View Matrix.
-	Transform *t = this->parent->getComponent<Transform>();
-	this->viewMatrix = glm::lookAt(
-		t->getPosition(),   //Get position from the Transform of the same GO.
-		t->getDirection(), // Beta
-		t->getUp()  //Get up dir from the Transform of the same GO.
-		);
+	transform = this->parent->getComponent<Transform>();
+	this->computeViewMatrix();
 
 	// Setting up Projection Matrix with default values.
 	this->fieldOfView = 45.0f;
@@ -41,6 +37,12 @@ void Camera::setUpProjMatrix()
 		this->nearClippingPlane, // Near clipping plane. Keep as big as possible, or you'll get precision issues.
 		this->farClippingPlane   // Far clipping plane. Keep as little as possible.
 		);
+}
+
+void Camera::computeViewMatrix()
+{
+	//this->viewMatrix = glm::lookAt(transform->getPosition(), vec3(0, 0, 0), vec3(0, 1, 0));
+	this->viewMatrix = glm::inverse(transform->getModelMatrix());
 }
 
 
@@ -76,4 +78,9 @@ mat4 Camera::getViewMatrix()
 mat4 Camera::getProjectionMatrix()
 {
 	return projectionMatrix;
+}
+
+void Camera::update()
+{
+	this->computeViewMatrix();
 }

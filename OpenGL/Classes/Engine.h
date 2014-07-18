@@ -1,12 +1,16 @@
-//#pragma once
+#pragma once
 #include <GL\glew.h>
 #include <glfw3.h>
 
 #include <MainRenderer.h>
+#include <Input.h>
+#include <Camera.h>
 
 //This class may have to be abstract.
 class Engine
 {
+private:
+	GLFWwindow* window;
 public:
 	int run();
 	virtual void render(){};

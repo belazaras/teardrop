@@ -1,5 +1,7 @@
 #pragma once
-#include "Component.h"
+
+#include <Component.h>
+
 class Script :
 	public Component
 {

@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-	std::string temp = "media/models/rungholt/house.obj";
+	std::string temp = "D:/Desktop/ugly.obj";
 	std::vector<tinyobj::shape_t> shapes;
 	clock_t begin, end;
 	int ms_spent;

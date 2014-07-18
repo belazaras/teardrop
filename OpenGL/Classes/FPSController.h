@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
-#include <glfw3.h>
+//#include <glfw3.h>
 #include <iostream>
 
 
@@ -13,6 +13,7 @@ class FPSController
 {
 private:
 	Transform *transform;
+	vec3 pitchYawRoll;
 	vec3 velocity;
 	float maxVelocitySpeed; // Speed = Velocity Magnitude.
 	float velocityDamp; // Fraction of Velocity retained per second.

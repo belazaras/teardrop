@@ -1,4 +1,7 @@
 #include "FPSController.h"
+
+#include <Engine.h>
+
 FPSController::FPSController()
 {
 	velocity = vec3(0.0f);
@@ -14,21 +17,15 @@ FPSController::~FPSController()
 }
 
 void FPSController::pitch(float x) {
-	vec3 v = transform->getPosition();
-	float newX = v.x + x;
-	transform->setPosition(*new vec3(newX, v.y, v.z));
+	pitchYawRoll.x = pitchYawRoll.x + x;
 }
 
 void FPSController::yaw(float y) {
-	vec3 v = transform->getPosition();
-	float newY = v.y + y;
-	transform->setPosition(*new vec3(v.x, newY, v.z));
+	pitchYawRoll.y = pitchYawRoll.y + y;
 }
 
 void FPSController::roll(float z) {
-	vec3 v = transform->getPosition();
-	float newZ = v.z + z;
-	transform->setPosition(*new vec3(v.x, v.y, newZ));
+	pitchYawRoll.z = pitchYawRoll.z + z;
 }
 
 void FPSController::forward(float s) {
@@ -43,5 +40,6 @@ void FPSController::update() {
 
 	//Get mouse position
 	double xpos, ypos;
+	printf("Delta: %f\n", Engine::deltaTime());
 	
 }
