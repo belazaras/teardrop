@@ -35,10 +35,10 @@ void myApp::setup()
 	}
 
 	SuperCam = new GameObject();
-	SuperCam->getComponent<Transform>()->setPosition(5, 5, 25);
+	//SuperCam->getComponent<Transform>()->setPosition(5, 5, 25);
 	Camera *myCam = SuperCam->addComponent<Camera>();
-	if (Camera::current())
-		printf("Hay Camera\n");
+	/*if (Camera::current())
+		printf("Hay Camera\n");*/
 
 	//Cube->addComponent<myScript>();
 }
@@ -51,14 +51,16 @@ void myApp::render()
 	gOs[0][1]->getComponent<Transform>()->yaw(-3);
 	gOs[1][2]->getComponent<Transform>()->yaw(1);
 
-	static const float ROTATION_ACCEL = 100.0f; // rate of acceleration in radians/sec
+	static const float ROTATION_ACCEL = 60.0f; // rate of acceleration in radians/sec
 	float moveSpeed = 0.1;
 
 	//Input::centerMouse();
-	vec2 mPos = Input::getMouseDelta();
+	vec2 mPos = Input::getMouseDelta()* ROTATION_ACCEL;
 
-	SuperCam->getComponent<Transform>()->pitch(-mPos.y * ROTATION_ACCEL);
-	SuperCam->getComponent<Transform>()->yaw(-mPos.x * ROTATION_ACCEL);
+	//SuperCam->getComponent<Transform>()->pitch(-mPos.y * ROTATION_ACCEL);
+	//SuperCam->getComponent<Transform>()->yaw(-mPos.x * ROTATION_ACCEL);
+	Camera::current()->ChangePitch(-mPos.y);
+	Camera::current()->ChangeHeading( -mPos.x);
 	
 
 	if (Input::getKey("LSHIFT"))
@@ -68,19 +70,23 @@ void myApp::render()
 
 	if (Input::getKey("A"))
 	{
-		SuperCam->getComponent<Transform>()->translate(-moveSpeed, 0, 0);
+		//SuperCam->getComponent<Transform>()->translate(-moveSpeed, 0, 0);
+		Camera::current()->Move(LEFT);
 	}
 	if (Input::getKey("D"))
 	{
-		SuperCam->getComponent<Transform>()->translate(moveSpeed, 0, 0);
+		//SuperCam->getComponent<Transform>()->translate(moveSpeed, 0, 0);
+		Camera::current()->Move(RIGHT);
 	}
 	if (Input::getKey("W"))
 	{
-		SuperCam->getComponent<Transform>()->translate(0, 0, -moveSpeed);
+		//SuperCam->getComponent<Transform>()->translate(0, 0, -moveSpeed);
+		Camera::current()->Move(FORWARD);
 	}
 	if (Input::getKey("S"))
 	{
-		SuperCam->getComponent<Transform>()->translate(0, 0, moveSpeed);
+		//SuperCam->getComponent<Transform>()->translate(0, 0, moveSpeed);
+		Camera::current()->Move(BACK);
 	}
 
 	if (Input::getKey("Q"))
