@@ -13,21 +13,20 @@ class Mesh :
 private:
 	std::vector<tinyobj::shape_t> shapes;
 
-	GLuint vao;
-	GLuint indexBuffer;
-	GLuint vertexBuffer;
-	GLuint uvBuffer;
-	void setUpVao();
+	std::vector<GLuint> vaos;
+	std::vector<GLuint> indexBuffers;
+	std::vector<GLuint> vertexBuffers;
+	std::vector<GLuint> uvBuffers;
+	void setUpShape(int shape);
+	void setUp();
 public:
 	Mesh(GameObject *go);
 	~Mesh();
-	//GLuint getVertexBufferID();
-	//GLuint getUVBufferID();
-	//GLuint getIndexBufferID();
-	GLuint getVAO();
+	GLuint getVAO(int i);
 	int loadOBJ(std::string inputfile);
 	int loadCOBJ(std::string inputfile);
-	int getIndexCount();
+	int getShapesCount();
+	int getIndexCountForShape(int i);
 	void clean();
 };
 

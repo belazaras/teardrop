@@ -18,15 +18,17 @@ void myApp::setup()
 	Mesh *myMesh = Cube->addComponent<Mesh>();
 	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
 
+
+	vec3 iniPos = vec3(-5, 25, 30);
 	for (int i = 0; i < cantX; i++)
 	{
 		for (int j = 0; j < cantY; j++)
 		{
 			gOs[i][j] = new GameObject();
-			gOs[i][j]->getComponent<Transform>()->setPosition(j * 2.8, i * 2.8, 0);
-			gOs[i][j]->getComponent<Transform>()->yaw(j*30);
-			gOs[i][j]->getComponent<Transform>()->pitch(j*20);
-			gOs[i][j]->getComponent<Transform>()->roll(-j * 20);
+			gOs[i][j]->getComponent<Transform>()->setPosition(iniPos.x + j * 2.8, iniPos.y + i * 2.8, iniPos.z);
+			gOs[i][j]->getComponent<Transform>()->yaw(iniPos.y + j * 30);
+			gOs[i][j]->getComponent<Transform>()->pitch(iniPos.x + j * 20);
+			gOs[i][j]->getComponent<Transform>()->roll(iniPos.z + -j * 20);
 			gOs[i][j]->addComponent<Renderer>();
 			gOs[i][j]->addComponent<Mesh>()->loadCOBJ("media/models/cube/cube-uv.cobj");
 		}	
@@ -34,8 +36,8 @@ void myApp::setup()
 
 	SuperCam = new GameObject();
 	Transform *myTran = SuperCam->getComponent<Transform>();
-	myTran->setPosition(5, 5, 25);
-	myTran->setLookAt(vec3(5, 5, 0));
+	myTran->setPosition(0, 26, 80);
+	myTran->setLookAt(vec3(0, 26, 0));
 	Camera *myCam = SuperCam->addComponent<Camera>();
 
 	fps = new FPSController(myCam, myTran);
@@ -51,14 +53,14 @@ void myApp::render()
 	gOs[0][1]->getComponent<Transform>()->yaw(-3);
 	gOs[1][2]->getComponent<Transform>()->yaw(1);
 
-	if (Input::getKey("Q"))
+	/*if (Input::getKey("Q"))
 	{
 		gOs[3][2]->getComponent<Transform>()->roll(-10);
 	}
 	if (Input::getKey("E"))
 	{
 		gOs[3][2]->getComponent<Transform>()->roll(10);
-	}		
+	}*/		
 	if (Input::getMouseButton("LEFT"))
 		printf("Apretaron el mouse izq.\n");
 }

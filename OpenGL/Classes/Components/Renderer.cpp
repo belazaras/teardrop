@@ -38,9 +38,12 @@ void Renderer::render()
 		GLuint MatrixID = glGetUniformLocation(pID, "MVP");
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
-		//Bind mesh's vao.
-		glBindVertexArray(mesh->getVAO());
-		// Draw the triangles!
-		glDrawElements(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, (void*)0);
+		for (int i = 0; i < mesh->getShapesCount(); i++)
+		{
+			//Bind mesh's vao.
+			glBindVertexArray(mesh->getVAO(i));
+			// Draw the triangles!
+			glDrawElements(GL_TRIANGLES, mesh->getIndexCountForShape(i), GL_UNSIGNED_INT, (void*)0);
+		}
 	}	
 }

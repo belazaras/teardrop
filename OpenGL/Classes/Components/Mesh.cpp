@@ -10,9 +10,10 @@ Mesh::~Mesh()
 {
 }
 
-GLuint Mesh::getVAO()
+GLuint Mesh::getVAO(int i)
 {
-	return vao;
+	// Return the VAO number i.
+	return vaos[i];
 }
 
 int Mesh::loadOBJ(std::string inputfile)
@@ -35,7 +36,8 @@ int Mesh::loadOBJ(std::string inputfile)
 	printf("Shape name: %s\n", shapes[0].name.c_str());
 	printf("# of vertices : %i\n", shapes[0].mesh.positions.size() / 3);
 
-	this->setUpVao();
+	// Call to set up VAOs and it's VBOs.
+	this->setUp();
 
 	return 0;
 }
@@ -96,8 +98,8 @@ int Mesh::loadCOBJ(std::string inputfile)
 		ms_spent = (double)(end - begin) / CLOCKS_PER_SEC * 1000;
 		printf("Mesh loading: %i ms.\n", ms_spent);
 
-		// Call to set up VAO and VBOs.
-		this->setUpVao();
+		// Call to set up VAOs and it's VBOs.
+		this->setUp();
 		return 0;
 	}
 	else
@@ -106,16 +108,18 @@ int Mesh::loadCOBJ(std::string inputfile)
 	}	
 }
 
-void Mesh::setUpVao()
+void Mesh::setUpShape(int shape)
 {
 	//Generate and bind a VAO that holds the buffers state and bindings.
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	vaos.push_back(0); // Push anything to fill the vector.
+	glGenVertexArrays(1, &vaos[shape]);
+	glBindVertexArray(vaos[shape]);
 
 	// Generate, bind and load a buffer for the vertices.
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, shapes[0].mesh.positions.size() * sizeof(float), &shapes[0].mesh.positions[0], GL_STATIC_DRAW);
+	vertexBuffers.push_back(0); // Push anything to fill the vector.
+	glGenBuffers(1, &vertexBuffers[shape]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers[shape]);
+	glBufferData(GL_ARRAY_BUFFER, shapes[shape].mesh.positions.size() * sizeof(float), &shapes[shape].mesh.positions[0], GL_STATIC_DRAW);
 
 	// Enable vertex attribute 0 (It must match the shader location).
 	glEnableVertexAttribArray(0);
@@ -129,9 +133,10 @@ void Mesh::setUpVao()
 		);
 
 	//Generate, bind and load a buffer for the UV coordinates.
-	glGenBuffers(1, &uvBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, shapes[0].mesh.texcoords.size() * sizeof(float), &shapes[0].mesh.texcoords[0], GL_STATIC_DRAW);
+	uvBuffers.push_back(0); // Push anything to fill the vector.
+	glGenBuffers(1, &uvBuffers[shape]);
+	glBindBuffer(GL_ARRAY_BUFFER, uvBuffers[shape]);
+	glBufferData(GL_ARRAY_BUFFER, shapes[shape].mesh.texcoords.size() * sizeof(float), &shapes[shape].mesh.texcoords[0], GL_STATIC_DRAW);
 
 	// Enable vertex attribute 1 (It must match the shader location).
 	glEnableVertexAttribArray(1);
@@ -145,25 +150,45 @@ void Mesh::setUpVao()
 		);
 
 	// Generate, bind and load a buffer for the indices.
-	glGenBuffers(1, &indexBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, shapes[0].mesh.indices.size() * sizeof(unsigned int), &shapes[0].mesh.indices[0], GL_STATIC_DRAW);
+	indexBuffers.push_back(0); // Push anything to fill the vector.
+	glGenBuffers(1, &indexBuffers[shape]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffers[shape]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, shapes[shape].mesh.indices.size() * sizeof(unsigned int), &shapes[shape].mesh.indices[0], GL_STATIC_DRAW);
+}
 
-	//Unbind the vao so nobody messes with it.
+void Mesh::setUp()
+{
+	//For each shape set up it's buffers.
+	for (int i = 0; i < shapes.size(); i++)
+	{
+		this->setUpShape(i);
+	}
+
+	//Unbind the last VAO so nobody messes with it.
 	glBindVertexArray(0);
 }
 
-int Mesh::getIndexCount()
+int Mesh::getShapesCount()
 {
-	// Get indices count.
-	return shapes[0].mesh.indices.size();
+	// Return the number of shapes contained on this mesh.
+	return shapes.size();
+}
+
+int Mesh::getIndexCountForShape(int i)
+{
+	// Get indices count for shape i.
+	return shapes[i].mesh.indices.size();
 }
 
 void Mesh::clean()
 {
-	// Delete every VBO and the VAO.
-	glDeleteBuffers(1, &indexBuffer);
-	glDeleteBuffers(1, &uvBuffer);
-	glDeleteBuffers(1, &vertexBuffer);
-	glDeleteVertexArrays(1, &vao);
+	//For each shape:
+	for (int i = 0; i < shapes.size(); i++)
+	{
+		// Delete every VBO and the VAO.
+		glDeleteBuffers(1, &indexBuffers[i]);
+		glDeleteBuffers(1, &uvBuffers[i]);
+		glDeleteBuffers(1, &vertexBuffers[i]);
+		glDeleteVertexArrays(1, &vaos[i]);
+	}	
 }
