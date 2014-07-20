@@ -7,16 +7,21 @@
 Renderer::Renderer(GameObject *go)
 {
 	this->parent = go;
-
 	MainRenderer::getInstance()->attach(this);
-
-	//TESTING:
-	material = new Material();
-	//FIN TESTING.
 }
 
 Renderer::~Renderer()
 {
+}
+
+void Renderer::setMaterial(Material* material)
+{
+	this->material = material;
+}
+
+Material* Renderer::getMaterial()
+{
+	return material;
 }
 
 void Renderer::render()
@@ -27,11 +32,14 @@ void Renderer::render()
 
 	if (mesh && c) 
 	{
-		//Getting the MVP Matrix.
+		// Bind material's texture.
+		glBindTexture(GL_TEXTURE_2D, this->material->getTextureID());
+
+		// Getting the MVP Matrix.
 		glm::mat4 MVP = c->getProjectionMatrix() * c->getViewMatrix() * t->getModelMatrix();
 
 		// Getting the shader program ID.
-		GLuint pID = this->material->shader->getProgramID();
+		GLuint pID = this->material->getProgramID();
 		glUseProgram(pID);
 
 		// Filling the uniform MVP. What if the shader doesn't have it?

@@ -12,6 +12,8 @@ public:
 	bool enabled;
 	Renderer(GameObject *go);
 	~Renderer();
+	void setMaterial(Material* material);
+	Material* getMaterial();
 	void render();
 };
 

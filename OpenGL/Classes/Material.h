@@ -10,12 +10,14 @@ class Material
 private:
 	vec3 color;
 	Texture *texture;
-	//Shader *shader;
+	GLuint textureID;
+	Shader *shader;
 public:
-	Material();
+	Material(char *vs, char *fs);
 	~Material();
 
-	//BORRAR
-	Shader *shader;
+	void setTexture(char *path);
+	GLuint getTextureID();
+	GLuint getProgramID();
 };
 

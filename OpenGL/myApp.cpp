@@ -13,8 +13,15 @@ void myApp::setup()
 
 	Input::enableMouseCursor(false);
 
+	Material *dirt = new Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
+	dirt->setTexture("media/images/dirt.dds");
+
+	Material *brick = new Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
+	brick->setTexture("media/images/brick.dds");
+
 	Cube = new GameObject();
 	Renderer *myRender = Cube->addComponent<Renderer>();
+	myRender->setMaterial(dirt);
 	Mesh *myMesh = Cube->addComponent<Mesh>();
 	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
 
@@ -29,7 +36,7 @@ void myApp::setup()
 			gOs[i][j]->getComponent<Transform>()->yaw(iniPos.y + j * 30);
 			gOs[i][j]->getComponent<Transform>()->pitch(iniPos.x + j * 20);
 			gOs[i][j]->getComponent<Transform>()->roll(iniPos.z + -j * 20);
-			gOs[i][j]->addComponent<Renderer>();
+			gOs[i][j]->addComponent<Renderer>()->setMaterial(brick);
 			gOs[i][j]->addComponent<Mesh>()->loadCOBJ("media/models/cube/cube-uv.cobj");
 		}	
 	}

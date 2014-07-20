@@ -1,19 +1,30 @@
 #include "Material.h"
 
 
-Material::Material()
+Material::Material(char *vs, char *fs)
 {
-	//BORRAR; SOLO TESTING
 	shader = new Shader();
-	char *vs = "media/shaders/basic/basic.vs";
-	char *fs = "media/shaders/basic/basic.fs";
 	shader->load(vs, fs);
 
 	texture = new Texture();
-	GLuint texID = texture->loadDDS("media/images/dirt.dds");
 }
 
 
 Material::~Material()
 {
+}
+
+void Material::setTexture(char *path)
+{
+	textureID = texture->loadDDS(path);
+}
+
+GLuint Material::getTextureID()
+{
+	return textureID;
+}
+
+GLuint Material::getProgramID()
+{
+	return shader->getProgramID();
 }
