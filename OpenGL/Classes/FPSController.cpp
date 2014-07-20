@@ -1,5 +1,6 @@
 #include "FPSController.h"
 
+// Included here to avoid circular dependencies.
 #include <Engine.h>
 #include <Camera.h>
 
@@ -8,15 +9,14 @@ FPSController::FPSController(Camera *cam, Transform *tran)
 	camera = cam;
 	transform = tran;
 
+	pitchYawRoll = vec3(0.0f);
 	velocity = vec3(0.0f);
 
 	rotationDamp = vec3(.6, .6, 0);
 	velocityDamp = .85f;
 
 	movementSpeed = .05f;
-	maxRotationSpeed = vec3(5.0f);
-
-	pitchYawRoll = vec3(0.0f);
+	maxRotationSpeed = vec3(5.0f);	
 }
 
 
@@ -28,10 +28,9 @@ FPSController::~FPSController()
 //	pitchYawRoll.z = pitchYawRoll.z + z;
 //}
 
-vec3 FPSController::direction() //Borrar o algo
+vec3 FPSController::direction()
 {
-	//return glm::normalize(transform->getLookAt() - transform->getPosition());
-	return transform->getDirection();
+	return glm::normalize(transform->getLookAt() - transform->getPosition());
 }
 
 void FPSController::forward() {
@@ -68,8 +67,9 @@ void FPSController::update()
 	// Read input.
 	this->readInput();
 
-	
+	// Translate the transform.
 	transform->translate(velocity);
+	// Rotate the transform.
 	transform->rotate(pitchYawRoll.x, pitchYawRoll.y, pitchYawRoll.z);
 
 	// Apply rotation damping.
@@ -126,19 +126,13 @@ void FPSController::yaw(float degrees) {
 
 void FPSController::readInput()
 {
-	static const float ROTATION_ACCEL = 60.0f; // rate of acceleration
-	vec2 mPos = Input::getMouseDelta() * ROTATION_ACCEL;
+	const float rotationAccel = 60.0f; // Rate of acceleration.
+	vec2 mPos = Input::getMouseDelta() * rotationAccel;
 	this->pitch(-mPos.y);
 	this->yaw(-mPos.x);
 
-	if (Input::getKey("LSHIFT"))
-	{
-		movementSpeed = 0.10f;
-	}
-	else
-	{
-		movementSpeed = .05f;
-	}
+	movementSpeed = Input::getKey("LSHIFT") ? 0.10f : 0.05f;
+
 	if (Input::getKey("A"))
 	{
 		this->left();
@@ -155,5 +149,4 @@ void FPSController::readInput()
 	{
 		this->backward();
 	}
-
 }

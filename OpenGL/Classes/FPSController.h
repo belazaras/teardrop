@@ -1,38 +1,33 @@
 #pragma once
-
-#include <Transform.h>
-
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
-//#include <glfw3.h>
 #include <iostream>
 
+#include <Transform.h>
 class Camera;
 
-// Beta
+// It has to use deltaTime!
 class FPSController
 {
 private:
 	Transform* transform;
 	Camera* camera;
 
-	vec3 pitchYawRoll;
-	vec3 rotationDamp;
+	vec3 pitchYawRoll; // Rotation on the three axis.
+	vec3 rotationDamp; // Fraction of Rotation retained per second.
 
+	vec3 velocity;		// Velocity on the three axis.
 	float velocityDamp;  // Fraction of Velocity retained per second.
-	vec3 velocity;
-
+	
 	//float maxVelocitySpeed; // Speed = Velocity Magnitude.
 	float movementSpeed; // Acceleration?
-
 	vec3 maxRotationSpeed;
 
+	// Read input from Mouse and Keyboard.
 	void readInput();
+
+	//Calculate direction based on position and lookAt.
 	vec3 direction();
-public:
-	FPSController(Camera *cam, Transform *tran);
-	~FPSController();
 
 	// Impulse to the x,y,z rotation velocity, in rads/sec.
 	void pitch(float degrees);
@@ -46,7 +41,9 @@ public:
 	void backward();
 	void left();
 	void right();
-
+public:
+	FPSController(Camera *cam, Transform *tran);
+	~FPSController();
 	void update();
 };
 

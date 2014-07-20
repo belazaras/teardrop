@@ -19,9 +19,9 @@ Camera::Camera(GameObject *go)
 	// Adding instance to static collection.
 	Camera::instances.push_back(this);
 
-	//Setting up View Matrix.
+	// Getting Transform from parent.
 	transform = this->parent->getComponent<Transform>();
-	//this->computeViewMatrix();
+
 
 	// Setting up Projection Matrix with default values.
 	this->fieldOfView = 45.0f;
@@ -40,13 +40,6 @@ void Camera::setUpProjMatrix()
 		this->farClippingPlane   // Far clipping plane. Keep as little as possible.
 		);
 }
-
-//void Camera::computeViewMatrix()
-//{
-//	//this->viewMatrix = glm::lookAt(transform->getPosition(), vec3(0, 0, 0), vec3(0, 1, 0));
-//	this->viewMatrix = glm::inverse(transform->getModelMatrix());
-//}
-
 
 Camera::~Camera()
 {
@@ -74,7 +67,8 @@ Camera* Camera::current()
 
 mat4 Camera::getViewMatrix()
 {
-	return viewMatrix; //It's returning a copy, right?
+	//It's returning a copy, right?
+	return viewMatrix; 
 }
 
 mat4 Camera::getProjectionMatrix()
