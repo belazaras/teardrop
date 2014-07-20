@@ -12,10 +12,6 @@ class Transform;
 using namespace glm;
 using namespace std;
 
-enum CameraDirection {
-	UP, DOWN, LEFT, RIGHT, FORWARD, BACK
-};
-
 class Camera :
 	public Component
 {
@@ -41,21 +37,18 @@ public:
 	void update();
 	
 	// TODO BETA:
-	glm::vec3 camera_up;
-	glm::vec3 camera_position;			// Usar Transform->pos
-	glm::vec3 camera_position_delta;
-	glm::vec3 camera_look_at;
-	glm::vec3 camera_direction;
-	float camera_pitch;
-	float camera_heading;
-	float camera_scale;
-	void Move2D(int x, int y);
-	//Change the pitch (up, down) for the free camera
-	void ChangePitch(float degrees);
-	//Change heading (left, right) for the free camera
-	void ChangeHeading(float degrees);
-	float max_pitch_rate;
-	float max_heading_rate;
-	void Move(CameraDirection dir);
+	glm::vec3 up;							// Transform
+	glm::vec3 position;						// Transform
+	glm::vec3 velocity;				// FPS
+	glm::vec3 look_at;						// Transform
+	glm::vec3 direction;					// Transform
+
+	vec3 pitchYawRoll;						// FPS
+	float movementSpeed;					// FPS
+	void ChangePitch(float degrees);		// FPS
+	void ChangeHeading(float degrees);		// FPS
+	float max_pitch_rate;					// FPS
+	float max_yaw_rate;						// FPS
+	//void Move(CameraDirection dir);			// FPS
 };
 

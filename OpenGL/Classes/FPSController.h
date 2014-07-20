@@ -1,39 +1,51 @@
 #pragma once
 
 #include <Transform.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 //#include <glfw3.h>
 #include <iostream>
 
+class Camera;
 
 // Beta
 class FPSController
 {
 private:
-	Transform *transform;
-	vec3 pitchYawRoll;
-	vec3 velocity;
-	float maxVelocitySpeed; // Speed = Velocity Magnitude.
-	float velocityDamp; // Fraction of Velocity retained per second.
+	Transform* transform;
+	Camera* camera;
 
-	float maxRotationSpeed;
-	float rotationDamp;
+	vec3 pitchYawRoll;
+	vec3 rotationDamp;
+
+	float velocityDamp;  // Fraction of Velocity retained per second.
+	vec3 velocity;
+
+	//float maxVelocitySpeed; // Speed = Velocity Magnitude.
+	float movementSpeed; // Acceleration?
+
+	vec3 maxRotationSpeed;
+
+	void readInput();
+	vec3 direction();
 public:
-	FPSController();
+	FPSController(Camera *cam, Transform *tran);
 	~FPSController();
 
 	// Impulse to the x,y,z rotation velocity, in rads/sec.
-	void pitch(float x);
-	void yaw(float y);
+	void pitch(float degrees);
+	void yaw(float degrees);
 	void roll(float z);
 
 	// Impulse.
-	void forward(float s);
-	void backward(float s);
-	void left(float s);
-	void right(float s);
+	void up();
+	void down();
+	void forward();
+	void backward();
+	void left();
+	void right();
 
 	void update();
 };

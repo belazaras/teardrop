@@ -13,7 +13,7 @@ void myApp::setup()
 
 	Input::enableMouseCursor(false);
 
-	fps = new FPSController();
+	
 
 	Cube = new GameObject();
 	Renderer *myRender = Cube->addComponent<Renderer>();
@@ -35,8 +35,12 @@ void myApp::setup()
 	}
 
 	SuperCam = new GameObject();
-	//SuperCam->getComponent<Transform>()->setPosition(5, 5, 25);
+	Transform *myTran = SuperCam->getComponent<Transform>();
+	myTran->setPosition(5, 5, 25);
+	myTran->setLookAt(vec3(5, 5, 0));
 	Camera *myCam = SuperCam->addComponent<Camera>();
+
+	fps = new FPSController(myCam, myTran);
 	/*if (Camera::current())
 		printf("Hay Camera\n");*/
 
@@ -46,48 +50,10 @@ void myApp::setup()
 void myApp::render()
 {
 	//printf("Rendering...\n");
-	//fps->update();
+	fps->update();
 	//printf("Delta time: %f\n", Engine::deltaTime());
 	gOs[0][1]->getComponent<Transform>()->yaw(-3);
 	gOs[1][2]->getComponent<Transform>()->yaw(1);
-
-	static const float ROTATION_ACCEL = 60.0f; // rate of acceleration in radians/sec
-	float moveSpeed = 0.1;
-
-	//Input::centerMouse();
-	vec2 mPos = Input::getMouseDelta()* ROTATION_ACCEL;
-
-	//SuperCam->getComponent<Transform>()->pitch(-mPos.y * ROTATION_ACCEL);
-	//SuperCam->getComponent<Transform>()->yaw(-mPos.x * ROTATION_ACCEL);
-	Camera::current()->ChangePitch(-mPos.y);
-	Camera::current()->ChangeHeading( -mPos.x);
-	
-
-	if (Input::getKey("LSHIFT"))
-	{
-		moveSpeed = 0.15;
-	}
-
-	if (Input::getKey("A"))
-	{
-		//SuperCam->getComponent<Transform>()->translate(-moveSpeed, 0, 0);
-		Camera::current()->Move(LEFT);
-	}
-	if (Input::getKey("D"))
-	{
-		//SuperCam->getComponent<Transform>()->translate(moveSpeed, 0, 0);
-		Camera::current()->Move(RIGHT);
-	}
-	if (Input::getKey("W"))
-	{
-		//SuperCam->getComponent<Transform>()->translate(0, 0, -moveSpeed);
-		Camera::current()->Move(FORWARD);
-	}
-	if (Input::getKey("S"))
-	{
-		//SuperCam->getComponent<Transform>()->translate(0, 0, moveSpeed);
-		Camera::current()->Move(BACK);
-	}
 
 	if (Input::getKey("Q"))
 	{
@@ -101,15 +67,14 @@ void myApp::render()
 	if (Input::getMouseButton("LEFT"))
 		printf("Apretaron el mouse izq.\n");
 
-	vec3 pos = SuperCam->getComponent<Transform>()->getPosition();
+	//vec3 pos = SuperCam->getComponent<Transform>()->getPosition();
 	//printf("%f,%f,%f\n", pos.x, pos.y, pos.z);
-	mat4 mm = SuperCam->getComponent<Transform>()->getModelMatrix();
+	/*mat4 mm = SuperCam->getComponent<Transform>()->getModelMatrix();
 	printf("%f,%f,%f,%f\n", mm[0][0], mm[0][1], mm[0][2], mm[0][3]);
 	printf("%f,%f,%f,%f\n", mm[1][0], mm[1][1], mm[1][2], mm[1][3]);
 	printf("%f,%f,%f,%f\n", mm[2][0], mm[2][1], mm[2][2], mm[2][3]);
 	printf("%f,%f,%f,%f\n", mm[3][0], mm[3][1], mm[3][2], mm[3][3]);
-	printf("-----------------\n");
-
+	printf("-----------------\n");*/
 }
 
 void myApp::clean()
