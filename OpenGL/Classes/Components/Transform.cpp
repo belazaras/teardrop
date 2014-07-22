@@ -101,3 +101,13 @@ void Transform::rotate(float x, float y, float z)
 
 	modelMatrix *= glm::toMat4(rotation);
 }
+
+void Transform::scale(float x, float y, float z)
+{
+	modelMatrix = glm::scale(modelMatrix, vec3(x,y,z));
+}
+
+void Transform::scale(float uniform)
+{
+	modelMatrix = glm::scale(modelMatrix, vec3(uniform, uniform, uniform));
+}

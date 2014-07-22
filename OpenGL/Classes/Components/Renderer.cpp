@@ -35,8 +35,11 @@ void Renderer::render()
 		// Bind material's texture.
 		glBindTexture(GL_TEXTURE_2D, this->material->getTextureID());
 
-		// Getting the MVP Matrix.
-		glm::mat4 MVP = c->getProjectionMatrix() * c->getViewMatrix() * t->getModelMatrix();
+		//Generating the modelViewMatrix.
+		glm::mat4 modelVieMatrix = c->getViewMatrix() * t->getModelMatrix();
+
+		// Generating the MVP matrix.
+		glm::mat4 MVP = c->getProjectionMatrix() * modelVieMatrix;
 
 		// Getting the shader program ID.
 		GLuint pID = this->material->getProgramID();
@@ -45,6 +48,14 @@ void Renderer::render()
 		// Filling the uniform MVP. What if the shader doesn't have it?
 		GLuint MatrixID = glGetUniformLocation(pID, "MVP");
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+
+		// Beta
+		GLuint mv_matrix = glGetUniformLocation(pID, "mv_matrix");
+		glUniformMatrix4fv(mv_matrix, 1, GL_FALSE, &modelVieMatrix[0][0]);
+
+		GLuint proj_matrix = glGetUniformLocation(pID, "proj_matrix");
+		glUniformMatrix4fv(proj_matrix, 1, GL_FALSE, &c->getProjectionMatrix()[0][0]);
+		// Beta end.
 
 		for (int i = 0; i < mesh->getShapesCount(); i++)
 		{

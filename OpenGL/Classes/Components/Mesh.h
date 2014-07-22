@@ -17,6 +17,7 @@ private:
 	std::vector<GLuint> indexBuffers;
 	std::vector<GLuint> vertexBuffers;
 	std::vector<GLuint> uvBuffers;
+	std::vector<GLuint> normalBuffers;
 	void setUpShape(int shape);
 	void setUp();
 public:

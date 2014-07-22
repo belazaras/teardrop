@@ -107,6 +107,7 @@ void Input::setMousePosition(vec2 mousePos)
 
 void Input::centerMouse()
 {
+	// Works horribly.
 	vec2 pos = Input::windowSize();
 	Input::setMousePosition(vec2(pos.x/2,pos.y/2));
 }

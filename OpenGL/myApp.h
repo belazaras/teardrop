@@ -7,7 +7,9 @@
 class myApp : public Engine
 {
 private:
-	GameObject *Cube;
+	GameObject *suzanne;
+	GameObject *house;
+	GameObject *subaru;
 	FPSController *fps; // Beta
 	const int cantX = 5;
 	const int cantY = 5;

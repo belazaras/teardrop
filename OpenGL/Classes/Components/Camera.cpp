@@ -27,7 +27,7 @@ Camera::Camera(GameObject *go)
 	this->fieldOfView = 45.0f;
 	this->aspectRatio = 16.0f / 9.0f; // Por ahí cambiar a valores de la window.
 	this->nearClippingPlane = 0.1f;
-	this->farClippingPlane = 100.0f;
+	this->farClippingPlane = 1000.0f;
 	this->setUpProjMatrix();
 }
 

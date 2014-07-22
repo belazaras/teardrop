@@ -19,12 +19,32 @@ void myApp::setup()
 	Material *brick = new Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
 	brick->setTexture("media/images/brick.dds");
 
-	Cube = new GameObject();
-	Renderer *myRender = Cube->addComponent<Renderer>();
-	myRender->setMaterial(dirt);
-	Mesh *myMesh = Cube->addComponent<Mesh>();
-	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
+	Material *suza = new Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suza->setTexture("media/images/matcaps/skin.dds");
 
+	Material *suba = new Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
+
+	house = new GameObject();
+	Renderer *myRender = house->addComponent<Renderer>();
+	myRender->setMaterial(dirt);
+	Mesh *myMesh = house->addComponent<Mesh>();
+	myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
+
+	suzanne = new GameObject();
+	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);
+	suzanne->getComponent<Transform>()->scale(6);
+	Renderer *suzaRender = suzanne->addComponent<Renderer>();
+	suzaRender->setMaterial(suza);
+	Mesh *suzaMesh = suzanne->addComponent<Mesh>();
+	suzaMesh->loadCOBJ("media/models/suzanne/suzanne.cobj");
+
+	subaru = new GameObject();
+	subaru->getComponent<Transform>()->setPosition(10, 0, 50);
+	subaru->getComponent<Transform>()->scale(6);
+	Renderer *subaRender = subaru->addComponent<Renderer>();
+	subaRender->setMaterial(suba);
+	Mesh *subaMesh = subaru->addComponent<Mesh>();
+	subaMesh->loadCOBJ("media/models/subaru/subaru.cobj");
 
 	vec3 iniPos = vec3(-5, 25, 30);
 	for (int i = 0; i < cantX; i++)
@@ -55,11 +75,14 @@ void myApp::render()
 	//printf("Rendering...\n");
 	//printf("Delta time: %f\n", Engine::deltaTime());
 
+	
+
 	fps->update();
 	
 	gOs[0][1]->getComponent<Transform>()->yaw(-3);
 	gOs[1][2]->getComponent<Transform>()->yaw(1);
 
+	suzanne->getComponent<Transform>()->yaw(1);
 	/*if (Input::getKey("Q"))
 	{
 		gOs[3][2]->getComponent<Transform>()->roll(-10);
@@ -75,5 +98,5 @@ void myApp::render()
 void myApp::clean()
 {
 	printf("Cleaning.\n");
-	Cube->getComponent<Mesh>()->clean(); //Se debe hacer automaticamente.
+	house->getComponent<Mesh>()->clean(); //Se debe hacer automaticamente.
 }
