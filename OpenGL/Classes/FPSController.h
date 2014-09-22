@@ -26,7 +26,7 @@ private:
 	// Read input from Mouse and Keyboard.
 	void readInput();
 
-	//Calculate direction based on position and lookAt.
+	//Calculates direction based on position and lookAt.
 	vec3 direction();
 
 	// Impulse to the x,y,z rotation velocity, in rads/sec.

@@ -21,7 +21,10 @@ MainRenderer* MainRenderer::getInstance()
 void MainRenderer::notify_render() {
 	// Publisher broadcasts
 	for (int i = 0; i < renderers.size(); i++)
-		renderers[i]->render();
+	{
+		if (renderers[i]->enabled)
+			renderers[i]->render();
+	}	
 }
 
 void MainRenderer::attach(Renderer *obs)

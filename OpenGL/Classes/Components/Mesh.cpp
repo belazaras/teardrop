@@ -187,7 +187,7 @@ void Mesh::setUp()
 
 int Mesh::getShapesCount()
 {
-	// Return the number of shapes contained on this mesh.
+	// Returns the number of shapes contained on this mesh.
 	return shapes.size();
 }
 

@@ -50,7 +50,7 @@ int Engine::run()
 			Camera::current()->update();
 
         /* Render hook-up */
-		this->render(); // Is it necessary?
+		this->update(); // Is it necessary?
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

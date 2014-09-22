@@ -13,7 +13,7 @@ private:
 	GLFWwindow* window;
 public:
 	int run();
-	virtual void render(){};
+	virtual void update(){};
 	virtual void clean(){};
 	virtual void setup(){};
 	virtual void on_key(int key,int action){}; // It's not being used at the moment.

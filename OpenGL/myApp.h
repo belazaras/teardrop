@@ -16,7 +16,7 @@ private:
 	GameObject *gOs[5][5];
 	GameObject *SuperCam;
 public:
-	void render();
+	void update();
 	void clean();
 	void setup();
 };

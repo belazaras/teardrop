@@ -24,11 +24,14 @@ void myApp::setup()
 
 	Material *suba = new Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 
+	Material *suba2 = new Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suba2->setTexture("media/images/matcaps/shiny_red.dds");
+
 	house = new GameObject();
 	Renderer *myRender = house->addComponent<Renderer>();
 	myRender->setMaterial(dirt);
 	Mesh *myMesh = house->addComponent<Mesh>();
-	myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
+	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
 
 	suzanne = new GameObject();
 	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);
@@ -42,7 +45,7 @@ void myApp::setup()
 	subaru->getComponent<Transform>()->setPosition(10, 0, 50);
 	subaru->getComponent<Transform>()->scale(6);
 	Renderer *subaRender = subaru->addComponent<Renderer>();
-	subaRender->setMaterial(suba);
+	subaRender->setMaterial(suba2);
 	Mesh *subaMesh = subaru->addComponent<Mesh>();
 	subaMesh->loadCOBJ("media/models/subaru/subaru.cobj");
 
@@ -70,7 +73,7 @@ void myApp::setup()
 	fps = new FPSController(myCam, myTran);
 }
 
-void myApp::render()
+void myApp::update()
 {
 	//printf("Rendering...\n");
 	//printf("Delta time: %f\n", Engine::deltaTime());

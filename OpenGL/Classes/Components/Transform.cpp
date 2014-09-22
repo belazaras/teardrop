@@ -4,7 +4,7 @@ Transform::Transform()
 {
 	modelMatrix = glm::mat4(1.0f);
 	position = vec3(0.0f);
-	look_at = vec3(0.0f);
+	look_at = vec3(0, 0, -1);
 	direction = vec3(0,0,-1);
 	up = vec3(0, 1, 0);
 	rotation = quat();
