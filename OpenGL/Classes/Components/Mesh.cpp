@@ -149,7 +149,7 @@ void Mesh::setUpShape(int shape)
 		(void*)0            // array buffer offset
 		);
 
-	//Generate, bind and load a buffer for the UV coordinates.
+	//Generate, bind and load a buffer for the normals.
 	normalBuffers.push_back(0); // Push anything to fill the vector.
 	glGenBuffers(1, &normalBuffers[shape]);
 	glBindBuffer(GL_ARRAY_BUFFER, normalBuffers[shape]);
@@ -158,7 +158,7 @@ void Mesh::setUpShape(int shape)
 	// Enable vertex attribute 2 (It must match the shader location).
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(
-		2,                  // attribute 2. It's normal in the shader.
+		2,                  // attribute 2. It's the normal in the shader.
 		3,                  // 3 elements for each vertex: x,y,z.
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -206,6 +206,7 @@ void Mesh::clean()
 		glDeleteBuffers(1, &indexBuffers[i]);
 		glDeleteBuffers(1, &uvBuffers[i]);
 		glDeleteBuffers(1, &vertexBuffers[i]);
+		glDeleteBuffers(1, &normalBuffers[i]);
 		glDeleteVertexArrays(1, &vaos[i]);
 	}	
 }

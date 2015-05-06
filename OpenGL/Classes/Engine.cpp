@@ -43,14 +43,14 @@ int Engine::run()
     {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		MainRenderer::getInstance()->notify_render();
+		MainRenderer::getInstance()->render();
 
 		// If there is a camera, update it's matrices.
 		if (Camera::current())
 			Camera::current()->update();
 
-        /* Render hook-up */
-		this->update(); // Is it necessary?
+        /* Update hook-up */
+		this->update();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

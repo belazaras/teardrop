@@ -14,6 +14,11 @@ GLuint Shader::getProgramID()
 	return program;
 }
 
+void Shader::clean()
+{
+	glDeleteProgram(program);
+}
+
 void Shader::load(char *vs_path, char *fs_path)
 {
 	GLuint vs;

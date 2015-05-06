@@ -9,23 +9,25 @@ void myApp::setup()
 {
 	printf("Starting.\n");
 
+	//MainRenderer::setDeferredRendering();
+
 	glClearColor(40 / 255.0, 40 / 255.0, 40 / 255.0, 1); // Medio ilegal aca :P
 
 	Input::enableMouseCursor(false);
 
-	Material *dirt = new Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
-	dirt->setTexture("media/images/dirt.dds");
+	Material dirt = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
+	dirt.setTexture("media/images/dirt.dds");
 
-	Material *brick = new Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
-	brick->setTexture("media/images/brick.dds");
+	Material brick = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
+	brick.setTexture("media/images/brick.dds");
 
-	Material *suza = new Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
-	suza->setTexture("media/images/matcaps/skin.dds");
+	Material suza = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suza.setTexture("media/images/matcaps/skin.dds");
 
-	Material *suba = new Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
+	Material suba = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 
-	Material *suba2 = new Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
-	suba2->setTexture("media/images/matcaps/shiny_red.dds");
+	Material suba2 = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suba2.setTexture("media/images/matcaps/shiny_red.dds");
 
 	house = new GameObject();
 	Renderer *myRender = house->addComponent<Renderer>();
@@ -66,7 +68,7 @@ void myApp::setup()
 
 	SuperCam = new GameObject();
 	Transform *myTran = SuperCam->getComponent<Transform>();
-	myTran->setPosition(0, 26, 80);
+	myTran->setPosition(0, 26, 120);
 	myTran->setLookAt(vec3(0, 26, 0));
 	Camera *myCam = SuperCam->addComponent<Camera>();
 
@@ -78,14 +80,17 @@ void myApp::update()
 	//printf("Rendering...\n");
 	//printf("Delta time: %f\n", Engine::deltaTime());
 
-	
+	if (Input::getKey("Q"))
+	{
+		vec3 pos = SuperCam->getComponent<Transform>()->getPosition();
+	}
 
 	fps->update();
 	
 	gOs[0][1]->getComponent<Transform>()->yaw(-3);
 	gOs[1][2]->getComponent<Transform>()->yaw(1);
 
-	suzanne->getComponent<Transform>()->yaw(1);
+	suzanne->getComponent<Transform>()->yaw(50 * Engine::deltaTime());
 	/*if (Input::getKey("Q"))
 	{
 		gOs[3][2]->getComponent<Transform>()->roll(-10);
@@ -101,5 +106,5 @@ void myApp::update()
 void myApp::clean()
 {
 	printf("Cleaning.\n");
-	house->getComponent<Mesh>()->clean(); //Se debe hacer automaticamente.
+	//house->getComponent<Mesh>()->clean(); //Se debe hacer automaticamente.
 }

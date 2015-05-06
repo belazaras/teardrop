@@ -6,20 +6,23 @@ using namespace std;
 
 class MainRenderer
 {
-private:
+protected:
 	// Singleton instance:
 	static MainRenderer *instance;
 
 	// Observer list:
 	vector < class Renderer * > renderers;
 
-protected:
+	//Deferred rendering
+	static bool deferred;
+
 	MainRenderer();
 	~MainRenderer();
 
 public:
 	static MainRenderer *getInstance();
-	void notify_render();
+	virtual void render();
 	void attach(Renderer *obs);
+	static void setDeferredRendering();
 };
 	

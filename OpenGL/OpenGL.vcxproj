@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -28,7 +28,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -56,6 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,6 +93,7 @@
     <ClInclude Include="Classes\FPSController.h" />
     <ClInclude Include="Classes\GameObject.h" />
     <ClInclude Include="Classes\Input.h" />
+    <ClInclude Include="Classes\MainDeferredRenderer.h" />
     <ClInclude Include="Classes\MainRenderer.h" />
     <ClInclude Include="Classes\Material.h" />
     <ClInclude Include="Classes\Shader.h" />
@@ -112,6 +114,7 @@
     <ClCompile Include="Classes\FPSController.cpp" />
     <ClCompile Include="Classes\GameObject.cpp" />
     <ClCompile Include="Classes\Input.cpp" />
+    <ClCompile Include="Classes\MainDeferredRenderer.cpp" />
     <ClCompile Include="Classes\MainRenderer.cpp" />
     <ClCompile Include="Classes\Material.cpp" />
     <ClCompile Include="Classes\Shader.cpp" />

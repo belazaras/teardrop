@@ -13,6 +13,7 @@ public:
 	Shader();
 	~Shader();
 	void load(char *vs_path, char *fs_path);
+	void clean();
 	GLuint getProgramID();
 };
 
