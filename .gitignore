@@ -72,7 +72,7 @@ Temporary Items
 *.sln.docstates
 
 # Build results
-[Dd]ebug/
+#[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -85,10 +85,12 @@ bld/
 
 
 # Nico Stuff
-[Dd]ebug/**/*
-
-# the subfolder(s) you want to track:
-!Debug/media/shaders/
+/*
+!/Debug
+/Debug/*
+!/Debug/media
+/Debug/media/*
+!/Debug/media/shaders
 
 # Roslyn cache directories
 *.ide/
