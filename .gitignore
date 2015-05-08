@@ -83,6 +83,13 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+
+# Nico Stuff
+[Dd]ebug/**/*
+
+# the subfolder(s) you want to track:
+!Debug/media/shaders/
+
 # Roslyn cache directories
 *.ide/
 

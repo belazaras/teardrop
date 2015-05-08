@@ -1,5 +1,6 @@
 #include "MainRenderer.h"
 #include <MainDeferredRenderer.h>
+#include <MainSSAORenderer.h>
 
 MainRenderer *MainRenderer::instance;
 
@@ -16,7 +17,9 @@ MainRenderer::~MainRenderer()
 void MainRenderer::setDeferredRendering()
 {
 	deferred = true;
-	instance = new MainDeferredRenderer();
+	//ARREGLAR!
+	//instance = new MainDeferredRenderer();
+	instance = new MainSSAORenderer();
 }
 
 MainRenderer* MainRenderer::getInstance()

@@ -4,7 +4,7 @@ void myApp2::setup()
 {
 	glClearColor(40 / 255.0, 40 / 255.0, 40 / 255.0, 1);
 	Input::enableMouseCursor(false);
-	//MainRenderer::setDeferredRendering();
+	MainRenderer::setDeferredRendering();
 
 	Mesh *sibenikMesh = sibenik.addComponent<Mesh>();
 	sibenikMesh->loadCOBJ("media/models/sibenik/output.cobj");

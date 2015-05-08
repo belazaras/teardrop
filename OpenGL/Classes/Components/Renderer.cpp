@@ -38,87 +38,6 @@ void Renderer::reloadMaterials()
 	}
 }
 
-// Random number generator
-static unsigned int seed = 0x13371337;
-
-static inline float random_float()
-{
-	float res;
-	unsigned int tmp;
-
-	seed *= 16807;
-
-	tmp = seed ^ (seed >> 4) ^ (seed << 15);
-
-	*((unsigned int *)&res) = (tmp >> 9) | 0x3F800000;
-
-	return (res - 1.0f);
-}
-
-
-// Mega RE beta
-void Renderer::setUpSSAO()
-{
-	
-	struct
-	{
-		struct
-		{
-			GLint           mv_matrix;
-			GLint           proj_matrix;
-			GLint           shading_level;
-		} render;
-		struct
-		{
-			GLint           ssao_level;
-			GLint           object_level;
-			GLint           ssao_radius;
-			GLint           weight_by_angle;
-			GLint           randomize_points;
-			GLint           point_count;
-		} ssao;
-	} uniforms;
-
-	//bool  show_shading;
-	//bool  show_ao;
-	//float ssao_level;
-	//float ssao_radius;
-	//bool  weight_by_angle;
-	//bool randomize_points;
-	//unsigned int point_count;
-
-	
-	for (int i = 0; i < 256; i++)
-	{
-		do
-		{
-			point_data.point[i][0] = random_float() * 2.0f - 1.0f;
-			point_data.point[i][1] = random_float() * 2.0f - 1.0f;
-			point_data.point[i][2] = random_float(); //  * 2.0f - 1.0f;
-			point_data.point[i][3] = 0.0f;
-		} while (length(point_data.point[i]) > 1.0f);
-		normalize(point_data.point[i]);
-	}
-	for (int i = 0; i < 256; i++)
-	{
-		point_data.random_vectors[i][0] = random_float();
-		point_data.random_vectors[i][1] = random_float();
-		point_data.random_vectors[i][2] = random_float();
-		point_data.random_vectors[i][3] = random_float();
-	}
-
-	glGenBuffers(1, &points_buffer);
-	glBindBuffer(GL_UNIFORM_BUFFER, points_buffer);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(SAMPLE_POINTS), &point_data, GL_STATIC_DRAW);
-}
-
-
-//MEGA BETA: Modificar para pasar uniforms a Material!
-void Renderer::ssao_render(GLuint pID)
-{
-	glBindBufferBase(GL_UNIFORM_BUFFER, 0, points_buffer);
-}
-
 // BETA: It renders multiple textures per object.
 void Renderer::render()
 {
@@ -219,6 +138,10 @@ void Renderer::deferred_render(GLuint pID)
 			GLuint MatrixID = glGetUniformLocation(pID, "mvp_matrix");
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
+			// Filling the uniform mv_matrix.
+			GLuint mv_matrix = glGetUniformLocation(pID, "mv_matrix");
+			glUniformMatrix4fv(mv_matrix, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
 			// Filling the uniform model_matrix.
 			GLuint model_matrix = glGetUniformLocation(pID, "model_matrix");
 			glUniformMatrix4fv(model_matrix, 1, GL_FALSE, &t->getModelMatrix()[0][0]);
@@ -244,6 +167,10 @@ void Renderer::deferred_render(GLuint pID)
 				// Filling the uniform mvp_matrix.
 				GLuint MatrixID = glGetUniformLocation(pID, "mvp_matrix");
 				glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+
+				// Filling the uniform mv_matrix.
+				GLuint mv_matrix = glGetUniformLocation(pID, "mv_matrix");
+				glUniformMatrix4fv(mv_matrix, 1, GL_FALSE, &modelViewMatrix[0][0]);
 
 				// Filling the uniform model_matrix.
 				GLuint model_matrix = glGetUniformLocation(pID, "model_matrix");
