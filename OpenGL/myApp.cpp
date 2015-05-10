@@ -13,6 +13,8 @@ void myApp::setup()
 
 	glClearColor(40 / 255.0, 40 / 255.0, 40 / 255.0, 1); // Medio ilegal aca :P
 
+	MainRenderer::setDeferredRendering();
+
 	Input::enableMouseCursor(false);
 
 	Material dirt = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
@@ -33,7 +35,7 @@ void myApp::setup()
 	Renderer *myRender = house->addComponent<Renderer>();
 	myRender->setMaterial(dirt);
 	Mesh *myMesh = house->addComponent<Mesh>();
-	myMesh->loadCOBJ("media/models/rungholt/house.cobj");
+	myMesh->loadCOBJ("media/models/rungholt/output.cobj");
 
 	suzanne = new GameObject();
 	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);

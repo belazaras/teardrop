@@ -2,7 +2,8 @@
 
 int main(int argc, char* argv[])
 {
-	std::string temp = "D:/GL/Teardrop/Debug/media/models/sibenik/test2.obj";
+	std::string temp = "D:/GL/Teardrop/Debug/media/models/rungholt/house.obj";
+	std::string base = "D:/GL/Teardrop/Debug/media/models/rungholt/";
 	std::vector<tinyobj::shape_t> shapes;
 	clock_t begin, end;
 	int ms_spent;
@@ -10,7 +11,7 @@ int main(int argc, char* argv[])
 
 
 	begin = clock();
-	std::string err = tinyobj::LoadObj(shapes, temp.c_str());
+	std::string err = tinyobj::LoadObj(shapes, temp.c_str(), base.c_str());
 	end = clock();
 	ms_spent = (double)(end - begin) / CLOCKS_PER_SEC * 1000;
 	printf("Mesh loading: %i ms.\n", ms_spent);
@@ -21,7 +22,8 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	std::ofstream fileout("output.cobj", std::ios::out | std::ios::binary);
+	std::string out = base.append("output.cobj");
+	std::ofstream fileout(out.c_str(), std::ios::out | std::ios::binary);
 	if (fileout)
 	{
 		assert(sizeof(float) == sizeof(uint32_t));
@@ -54,6 +56,7 @@ int main(int argc, char* argv[])
 			fileout.write((const char*)&shapes[i].mesh.texcoords[0], nTexcoords * sz);
 			fileout.write((const char*)&shapes[i].mesh.indices[0], nIndices   * sz);
 			fileout.write((const char*)&shapes[i].material.ambient[0], 3 * sz);
+			fileout.write((const char*)&shapes[i].material.diffuse[0], 3 * sz);
 		}
 	}
 	

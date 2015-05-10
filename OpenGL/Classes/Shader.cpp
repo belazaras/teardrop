@@ -19,6 +19,32 @@ void Shader::clean()
 	glDeleteProgram(program);
 }
 
+void Shader::extractShaderUniforms()
+{
+	GLuint pId = getProgramID();
+	const int BUFF_SIZE = 255;
+	//UniformsFactory& engineUniform = EngineUniforms::GetInstance();
+	int count;
+	glGetProgramiv(pId, GL_OBJECT_ACTIVE_UNIFORMS_ARB, &count);
+
+	for (int i = 0; i < count; ++i)
+	{
+		char name[BUFF_SIZE]; // for holding the variable name
+		GLint size = BUFF_SIZE;
+		GLenum type;
+		GLsizei length;
+		GLsizei bufSize = BUFF_SIZE;
+		glGetActiveUniform(pId, i, bufSize, &length, &size, &type, name);
+		int location = glGetUniformLocation(pId, name);
+
+		printf("Uniform name: %s\n", name);
+
+		//UniformType type1 = (UniformType)type;
+		//Uniform* uniform = engineFactory.CreateUniform(location, name, type1);
+	}
+	printf("---------------\n");
+}
+
 void Shader::load(char *vs_path, char *fs_path)
 {
 	GLuint vs;
@@ -34,6 +60,9 @@ void Shader::load(char *vs_path, char *fs_path)
 	
 	glDeleteProgram(vs);
 	glDeleteProgram(fs);
+
+	//BETA:
+	extractShaderUniforms();
 }
 
 GLuint Shader::load(const char * filename, GLenum shader_type, bool check_errors)

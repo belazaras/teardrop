@@ -9,10 +9,10 @@ layout (location = 0) out vec4 color;
 
 // Various uniforms controling SSAO effect
 uniform float ssao_level = 0.3;
-uniform float object_level = 0.7;
-uniform float ssao_radius = 5.0;
+uniform float object_level = 1.0;
+uniform float ssao_radius = 0.05;
 uniform bool weight_by_angle = true;
-uniform uint point_count = 8;
+uniform uint point_count = 16;
 uniform bool randomize_points = true;
 
 // Uniform block containing up to 256 random directions (x,y,z,0)

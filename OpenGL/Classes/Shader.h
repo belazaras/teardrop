@@ -9,6 +9,7 @@ class Shader
 private:
 	GLuint load(const char * filename, GLenum shader_type, bool check_errors);
 	GLuint program;
+	void extractShaderUniforms();
 public:
 	Shader();
 	~Shader();

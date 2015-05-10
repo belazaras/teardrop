@@ -91,6 +91,8 @@ int Mesh::loadCOBJ(std::string inputfile)
 			stream.read((char*)&shapes[i].mesh.texcoords[0], nTexcoords * sz);
 			stream.read((char*)&shapes[i].mesh.indices[0], nIndices   * sz);
 			stream.read((char*)&shapes[i].material.ambient[0], 3 * sz);
+			stream.read((char*)&shapes[i].material.diffuse[0], 3 * sz);
+
 		}
 
 		// Calculate loading time.

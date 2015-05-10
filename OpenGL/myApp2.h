@@ -15,4 +15,4 @@ public:
 	void setup();
 };
 
-DECLARE_MAIN(myApp2)
+//DECLARE_MAIN(myApp2)
