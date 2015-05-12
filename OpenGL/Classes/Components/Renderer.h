@@ -14,7 +14,7 @@ public:
 	~Renderer();
 	void setMaterial(Material material);
 	void setMaterials(std::vector<Material> materials);
-	Material getMaterial();
+	Material getMaterial(int i);
 	void reloadMaterials(); // Super Beta
 	void render();
 	void deferred_render(GLuint pID);

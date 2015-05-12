@@ -99,6 +99,9 @@
     <ClInclude Include="Classes\Material.h" />
     <ClInclude Include="Classes\Shader.h" />
     <ClInclude Include="Classes\Texture.h" />
+    <ClInclude Include="Classes\Uniform.h" />
+    <ClInclude Include="Classes\UniformDerived.h" />
+    <ClInclude Include="Classes\UniformFactory.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="myApp2.h" />
     <ClInclude Include="UserApp\scripts\myScript.h" />
@@ -121,6 +124,9 @@
     <ClCompile Include="Classes\Material.cpp" />
     <ClCompile Include="Classes\Shader.cpp" />
     <ClCompile Include="Classes\Texture.cpp" />
+    <ClCompile Include="Classes\Uniform.cpp" />
+    <ClCompile Include="Classes\UniformDerived.cpp" />
+    <ClCompile Include="Classes\UniformFactory.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="myApp2.cpp" />
     <ClCompile Include="UserApp\scripts\myScript.cpp" />

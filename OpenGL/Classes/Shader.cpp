@@ -1,5 +1,8 @@
 #include "Shader.h"
 
+#include <UniformFactory.h>
+#include <UniformDerived.h>
+
 Shader::Shader()
 {
 }
@@ -23,7 +26,6 @@ void Shader::extractShaderUniforms()
 {
 	GLuint pId = getProgramID();
 	const int BUFF_SIZE = 255;
-	//UniformsFactory& engineUniform = EngineUniforms::GetInstance();
 	int count;
 	glGetProgramiv(pId, GL_OBJECT_ACTIVE_UNIFORMS_ARB, &count);
 
@@ -37,12 +39,77 @@ void Shader::extractShaderUniforms()
 		glGetActiveUniform(pId, i, bufSize, &length, &size, &type, name);
 		int location = glGetUniformLocation(pId, name);
 
-		printf("Uniform name: %s\n", name);
+		Uniform* uniform = UniformFactory::createUniform(name, type);
+		uniform->addOwner(this,location);
+		uniforms.insert(std::make_pair(uniform->getName(), uniform));
 
-		//UniformType type1 = (UniformType)type;
-		//Uniform* uniform = engineFactory.CreateUniform(location, name, type1);
+		//Borrar
+		const char* uni_types[6] = { "Error", "FLOAT", "FLOAT_VEC3", "FLOAT_VEC4", "FLOAT_MAT3", "FLOAT_MAT4" };
+		printf("Uniform name: %s. Type: %s.\n", uniform->getName().c_str(), uni_types[uniform->getType()]);	
 	}
 	printf("---------------\n");
+}
+
+void Shader::updateUniform(Uniform* uniform, GLuint location)
+{
+	switch (uniform->getType())
+	{
+		case UniformType::FLOAT:
+		{
+			UniformFloat* unformFloat = static_cast<UniformFloat*>(uniform);
+			unformFloat->update(location);
+				break;
+		}
+
+		case UniformType::FLOAT_VEC3:
+		{
+			UniformFVec3* unformVec = static_cast<UniformFVec3*>(uniform);
+			unformVec->update(location);
+			break;
+		}
+
+		case UniformType::FLOAT_VEC4:
+		{
+			UniformFVec4* unformVec4 = static_cast<UniformFVec4*>(uniform);
+			unformVec4->update(location);
+			break;
+		}
+		
+		case UniformType::FLOAT_MAT3:
+		{
+			UniformFMat3* unformMat = static_cast<UniformFMat3*>(uniform);
+			unformMat->update(location);
+			break;
+		}
+
+		case UniformType::FLOAT_MAT4:
+		{
+			UniformFMat4* unformMat = static_cast<UniformFMat4*>(uniform);
+			unformMat->update(location);
+			break;
+		}	
+	}
+}
+
+void Shader::updateProgram()
+{
+	while (!m_dirtyUniforms.empty())
+	{
+		UniLocPair& top = m_dirtyUniforms.front();
+
+		Uniform* currUniform = top.first;
+		GLuint currLoc = top.second;
+
+		updateUniform(currUniform, currLoc);
+		m_dirtyUniforms.pop_front();
+	}
+}
+
+void Shader::notifyDirty(Uniform* uniform, GLuint location)
+{
+	UniLocPair asd = UniLocPair(uniform, location);
+
+	m_dirtyUniforms.push_back(asd);
 }
 
 void Shader::load(char *vs_path, char *fs_path)

@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 		assert(sizeof(float) == sizeof(uint32_t));
 		const auto sz = sizeof(uint32_t);
 		const uint32_t nMeshes = static_cast<uint32_t>(shapes.size());
-		const uint32_t nMatProperties = 3;
+		const uint32_t nMatProperties = 6;
 
 		fileout.write((const char*)&nMeshes, sz);        // nMeshes
 		fileout.write((const char*)&nMatProperties, sz); // nMatProperties

@@ -15,12 +15,15 @@ private:
 	Shader *shader;
 public:
 	Material(char *vs, char *fs);
-	~Material();
 
 	void setTexture(char *path);
 	void setShaders(char *vs, char *fs);
 	void reloadShaders();
 	GLuint getTextureID();
 	GLuint getProgramID();
+	
+	void updateShaderUniforms();
+	UniformsCollection* getShaderUniforms();
+	Uniform* getShaderUniform(std::string name);
 };
 

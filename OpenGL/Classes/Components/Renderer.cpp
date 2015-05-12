@@ -25,9 +25,9 @@ void Renderer::setMaterials(std::vector<Material> materials)
 	this->materials = materials;
 }
 
-Material Renderer::getMaterial()
+Material Renderer::getMaterial(int i = 0)
 {
-	return this->materials[0];
+	return this->materials[i];
 }
 
 void Renderer::reloadMaterials()
@@ -131,6 +131,10 @@ void Renderer::deferred_render(GLuint pID)
 
 		if (materials.size() == 1)
 		{
+			//BORRAR
+			this->materials[0].updateShaderUniforms();
+
+
 			// Bind material's texture.
 			glBindTexture(GL_TEXTURE_2D, this->materials[0].getTextureID());
 
@@ -161,6 +165,10 @@ void Renderer::deferred_render(GLuint pID)
 		{
 			for (int i = 0; i < mesh->getShapesCount(); i++)
 			{
+				//BORRAR
+				this->materials[i].updateShaderUniforms();
+
+
 				// Bind material's texture.
 				glBindTexture(GL_TEXTURE_2D, this->materials[i].getTextureID());
 

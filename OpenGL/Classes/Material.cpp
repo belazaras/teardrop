@@ -12,9 +12,19 @@ Material::Material(char *vs, char *fs)
 	texture = new Texture();
 }
 
-
-Material::~Material()
+UniformsCollection* Material::getShaderUniforms()
 {
+	return &shader->uniforms;
+}
+
+Uniform* Material::getShaderUniform(std::string name)
+{
+	return shader->uniforms[name];
+}
+
+void Material::updateShaderUniforms()
+{
+	shader->updateProgram();
 }
 
 void Material::setShaders(char *vs, char *fs)
