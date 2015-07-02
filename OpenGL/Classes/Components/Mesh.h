@@ -29,5 +29,9 @@ public:
 	int getShapesCount();
 	int getIndexCountForShape(int i);
 	void clean();
+
+	// Métodos temporales
+	float* getDiffuseForShape(int i);
+	float* getAmbientForShape(int i);
 };
 

@@ -212,3 +212,14 @@ void Mesh::clean()
 		glDeleteVertexArrays(1, &vaos[i]);
 	}	
 }
+
+
+float* Mesh::getDiffuseForShape(int i)
+{
+	return shapes[i].material.diffuse;
+}
+
+float* Mesh::getAmbientForShape(int i)
+{
+	return shapes[i].material.ambient;
+}

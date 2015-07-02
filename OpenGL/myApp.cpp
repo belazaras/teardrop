@@ -14,9 +14,7 @@ void myApp::setup()
 {
 	printf("Starting.\n");
 
-	//MainRenderer::setDeferredRendering();
-
-	glClearColor(40 / 255.0, 40 / 255.0, 40 / 255.0, 1); // Medio ilegal aca :P
+	glClearColor(68 / 255.0, 169 / 255.0, 255 / 255.0, 1); // Medio ilegal aca :P
 
 	MainRenderer::setDeferredRendering();
 
@@ -24,7 +22,7 @@ void myApp::setup()
 
 	/*Material comun = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic_color.fs");*/
 
-	Material dirt = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
+	Material dirt = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 	dirt.setTexture("media/images/dirt.dds");
 
 	//Material brick = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
@@ -42,7 +40,7 @@ void myApp::setup()
 	Renderer *myRender = house->addComponent<Renderer>();
 	myRender->setMaterial(dirt);
 	Mesh *myMesh = house->addComponent<Mesh>();
-	myMesh->loadCOBJ("media/models/rungholt/output.cobj");
+	myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
 
 	/*suzanne = new GameObject();
 	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);
@@ -77,8 +75,8 @@ void myApp::setup()
 
 	SuperCam = new GameObject();
 	Transform *myTran = SuperCam->getComponent<Transform>();
-	myTran->setPosition(0, 26, 120);
-	myTran->setLookAt(vec3(0, 26, 0));
+	myTran->setPosition(196.59, 143.11, 239.22);
+	myTran->setLookAt(vec3(196.072, 142.516, 238.603));
 	Camera *myCam = SuperCam->addComponent<Camera>();
 
 	fps = new FPSController(myCam, myTran);
@@ -88,11 +86,6 @@ void myApp::update()
 {
 	//printf("Rendering...\n");
 	//printf("Delta time: %f\n", Engine::deltaTime());
-
-	if (Input::getKey("Q"))
-	{
-		vec3 pos = SuperCam->getComponent<Transform>()->getPosition();
-	}
 
 	if (Input::getKey("E"))
 	{
@@ -124,7 +117,11 @@ void myApp::update()
 		gOs[3][2]->getComponent<Transform>()->roll(10);
 	}*/		
 	if (Input::getMouseButton("LEFT"))
-		printf("Apretaron el mouse izq.\n");
+	{
+		Transform *t = SuperCam->getComponent<Transform>();
+		printf("Estoy en (%f,%f,%f) mirando a (%f,%f,%f).\n", t->getPosition().x, t->getPosition().y, t->getPosition().z,
+			t->getLookAt().x, t->getLookAt().y, t->getLookAt().z);
+	}
 }
 
 void myApp::clean()

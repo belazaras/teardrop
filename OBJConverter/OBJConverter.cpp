@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-	std::string temp = "D:/GL/Teardrop/Debug/media/models/rungholt/house.obj";
+	std::string temp = "D:/GL/Teardrop/Debug/media/models/rungholt/rungholt.obj";
 	std::string base = "D:/GL/Teardrop/Debug/media/models/rungholt/";
 	std::vector<tinyobj::shape_t> shapes;
 	clock_t begin, end;

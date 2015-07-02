@@ -155,6 +155,18 @@ void Renderer::deferred_render(GLuint pID)
 
 			for (int i = 0; i < mesh->getShapesCount(); i++)
 			{
+
+				// Super temporal, borrar.
+				float* diffuse = mesh->getDiffuseForShape(i);
+				float* ambient = mesh->getAmbientForShape(i);
+
+				GLuint diffuse_albedo = glGetUniformLocation(pID, "diffuse_albedo");
+				glUniform3fv(diffuse_albedo, 1, &diffuse[0]);
+
+				GLuint ambient_id = glGetUniformLocation(pID, "ambient");
+				glUniform3fv(ambient_id, 1, &ambient[0]);
+
+
 				// Bind mesh's vao.
 				glBindVertexArray(mesh->getVAO(i));
 				// Draw the triangles!

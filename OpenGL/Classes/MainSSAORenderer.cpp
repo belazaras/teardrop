@@ -105,7 +105,7 @@ void MainSSAORenderer::render()
 	static const GLenum draw_buffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 
 	glBindFramebuffer(GL_FRAMEBUFFER, gbuffer);
-	glViewport(0, 0, 1280, 720); //Menos hardcoded
+	glViewport(0, 0, MAX_DISPLAY_WIDTH, MAX_DISPLAY_HEIGHT);
 	glDrawBuffers(2, draw_buffers);
 	glClearBufferuiv(GL_COLOR, 0, uint_zeros);
 	glClearBufferuiv(GL_COLOR, 1, uint_zeros);
@@ -125,7 +125,7 @@ void MainSSAORenderer::render()
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, 1280, 720); //Menos hardcoded
+	glViewport(0, 0, MAX_DISPLAY_WIDTH, MAX_DISPLAY_HEIGHT);
 	glDrawBuffer(GL_BACK);
 
 
