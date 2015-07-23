@@ -91,6 +91,7 @@ bld/
 !/Debug/media
 /Debug/media/*
 !/Debug/media/shaders
+!/Debug/media/images
 
 # Roslyn cache directories
 *.ide/
