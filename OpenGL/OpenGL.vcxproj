@@ -97,7 +97,6 @@
     <ClInclude Include="Classes\MainRenderer.h" />
     <ClInclude Include="Classes\MainSSAORenderer.h" />
     <ClInclude Include="Classes\Material.h" />
-    <ClInclude Include="Classes\rungholtApp.h" />
     <ClInclude Include="Classes\Shader.h" />
     <ClInclude Include="Classes\Texture.h" />
     <ClInclude Include="Classes\Uniform.h" />
@@ -105,6 +104,7 @@
     <ClInclude Include="Classes\UniformFactory.h" />
     <ClInclude Include="myApp.h" />
     <ClInclude Include="myApp2.h" />
+    <ClInclude Include="rungholtApp.h" />
     <ClInclude Include="UserApp\scripts\myScript.h" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +123,6 @@
     <ClCompile Include="Classes\MainRenderer.cpp" />
     <ClCompile Include="Classes\MainSSAORenderer.cpp" />
     <ClCompile Include="Classes\Material.cpp" />
-    <ClCompile Include="Classes\rungholtApp.cpp" />
     <ClCompile Include="Classes\Shader.cpp" />
     <ClCompile Include="Classes\Texture.cpp" />
     <ClCompile Include="Classes\Uniform.cpp" />
@@ -131,6 +130,7 @@
     <ClCompile Include="Classes\UniformFactory.cpp" />
     <ClCompile Include="myApp.cpp" />
     <ClCompile Include="myApp2.cpp" />
+    <ClCompile Include="rungholtApp.cpp" />
     <ClCompile Include="UserApp\scripts\myScript.cpp" />
     <ClCompile Include="UserApp\scripts\myScript2.cpp" />
   </ItemGroup>

@@ -84,7 +84,7 @@
     <ClInclude Include="Classes\UniformFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\rungholtApp.h">
+    <ClInclude Include="rungholtApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,7 +161,7 @@
     <ClCompile Include="Classes\UniformFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\rungholtApp.cpp">
+    <ClCompile Include="rungholtApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
