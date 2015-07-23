@@ -21,4 +21,4 @@ public:
 	void setup();
 };
 
-DECLARE_MAIN(myApp)
+//DECLARE_MAIN(myApp)

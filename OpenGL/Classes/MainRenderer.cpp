@@ -14,12 +14,14 @@ MainRenderer::~MainRenderer()
 {
 }
 
-void MainRenderer::setDeferredRendering()
+void MainRenderer::setDeferredRendering(bool ssao)
 {
 	deferred = true;
-	//ARREGLAR!
-	//instance = new MainDeferredRenderer();
-	instance = new MainSSAORenderer();
+	// Mejorar
+	if (ssao)
+		instance = new MainSSAORenderer();
+	else
+		instance = new MainDeferredRenderer();
 }
 
 MainRenderer* MainRenderer::getInstance()

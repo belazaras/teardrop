@@ -23,6 +23,6 @@ public:
 	static MainRenderer *getInstance();
 	virtual void render();
 	void attach(Renderer *obs);
-	static void setDeferredRendering();
+	static void setDeferredRendering(bool ssao);
 };
 	

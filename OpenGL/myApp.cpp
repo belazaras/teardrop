@@ -14,43 +14,44 @@ void myApp::setup()
 {
 	printf("Starting.\n");
 
-	glClearColor(68 / 255.0, 169 / 255.0, 255 / 255.0, 1); // Medio ilegal aca :P
+	//glClearColor(68 / 255.0, 169 / 255.0, 255 / 255.0, 1); // Medio ilegal aca :P
 
-	MainRenderer::setDeferredRendering();
+	bool ssao = true;
+	//MainRenderer::setDeferredRendering(ssao);
 
 	Input::enableMouseCursor(false);
 
 	/*Material comun = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic_color.fs");*/
 
-	Material dirt = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
+	Material dirt = Material("media/shaders/phong/phong_textured.vs", "media/shaders/phong/phong_textured.fs");
 	dirt.setTexture("media/images/dirt.dds");
 
 	//Material brick = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
 	//brick.setTexture("media/images/brick.dds");
 
-	//Material suza = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
-	//suza.setTexture("media/images/matcaps/skin.dds");
+	Material suza = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suza.setTexture("media/images/matcaps/skin.dds");
 
 	//Material suba = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 
-	//Material suba2 = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
-	//suba2.setTexture("media/images/matcaps/shiny_red.dds");
+	Material suba2 = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
+	suba2.setTexture("media/images/matcaps/shiny_red.dds");
 
-	house = new GameObject();
-	Renderer *myRender = house->addComponent<Renderer>();
-	myRender->setMaterial(dirt);
-	Mesh *myMesh = house->addComponent<Mesh>();
-	myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
+	//house = new GameObject();
+	//Renderer *myRender = house->addComponent<Renderer>();
+	//myRender->setMaterial(dirt);
+	//Mesh *myMesh = house->addComponent<Mesh>();
+	//myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
 
-	/*suzanne = new GameObject();
+	suzanne = new GameObject();
 	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);
 	suzanne->getComponent<Transform>()->scale(6);
 	Renderer *suzaRender = suzanne->addComponent<Renderer>();
-	suzaRender->setMaterial(suza);
+	suzaRender->setMaterial(suba2);
 	Mesh *suzaMesh = suzanne->addComponent<Mesh>();
 	suzaMesh->loadCOBJ("media/models/suzanne/suzanne.cobj");
 
-	subaru = new GameObject();
+	/*subaru = new GameObject();
 	subaru->getComponent<Transform>()->setPosition(10, 0, 50);
 	subaru->getComponent<Transform>()->scale(6);
 	Renderer *subaRender = subaru->addComponent<Renderer>();
@@ -87,20 +88,20 @@ void myApp::update()
 	//printf("Rendering...\n");
 	//printf("Delta time: %f\n", Engine::deltaTime());
 
-	if (Input::getKey("E"))
-	{
-		//MEGATESTING
-		UniformsCollection* cole = house->getComponent<Renderer>()->getMaterial(0).getShaderUniforms();
-		Uniform* uni = cole->at("MVP");
-		
-		UniformFVec3* unformVec = static_cast<UniformFVec3*>(uni);
-		
-		vec3 asd = vec3(0.55, 0.33, 0.10);
-		unformVec->setValue(glm::value_ptr(asd));
+	//if (Input::getKey("E"))
+	//{
+	//	//MEGATESTING
+	//	UniformsCollection* cole = house->getComponent<Renderer>()->getMaterial(0).getShaderUniforms();
+	//	Uniform* uni = cole->at("MVP");
+	//	
+	//	UniformFVec3* unformVec = static_cast<UniformFVec3*>(uni);
+	//	
+	//	vec3 asd = vec3(0.55, 0.33, 0.10);
+	//	unformVec->setValue(glm::value_ptr(asd));
 
-		printf("Name: %s.\n", uni->getName().c_str());
+	//	printf("Name: %s.\n", uni->getName().c_str());
 
-	}
+	//}
 
 	fps->update();
 	

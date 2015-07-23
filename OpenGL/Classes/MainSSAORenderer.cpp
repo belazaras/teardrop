@@ -130,7 +130,7 @@ void MainSSAORenderer::render()
 
 
 	//2nd pass:
-		glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, gbuffer_tex[0]);
 
 	glActiveTexture(GL_TEXTURE1);

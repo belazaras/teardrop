@@ -13,13 +13,15 @@ struct light_t
     uint    pad1;
 };
 
-uniform int num_lights = 64;
+uniform int num_lights = 4;
 uniform int vis_mode = 5;
 
-layout (std140) uniform light_block
-{
-    light_t     light[64];
-};
+//layout (std140) uniform light_block
+//{
+//    light_t     light[64];
+//};
+
+light_t     light[64];
 
 struct fragment_info_t
 {
@@ -48,7 +50,8 @@ void unpackGBuffer(ivec2 coord,
 
 vec4 vis_fragment(fragment_info_t fragment)
 {
-    vec4 result = vec4(0.0);
+    int i;
+    vec4 result = vec4(0.0, 0.0, 0.0, 1.0);
 
     switch (vis_mode)
     {
@@ -69,26 +72,36 @@ vec4 vis_fragment(fragment_info_t fragment)
                           1.0);
             break;
         case 5:
-            vec3 light_pos = vec3(0,30,60);
-            vec3 light_color = vec3(1,1,1);
-            vec3 L = light_pos - fragment.ws_coord;
-            float dist = length(L);
-            L = normalize(L);
-            vec3 N = normalize(fragment.normal);
-            vec3 R = reflect(-L, N);
-            float NdotR = max(0.0, dot(N, R));
-            float NdotL = max(0.0, dot(N, L));
-            float attenuation = 50.0 / (pow(dist, 1.0) + 1.0);
+            light[0].position = vec3(0,30,60);
+            light[0].color = vec3(1,1,1);
 
-            vec3 diffuse_color  = 1.0 * light_color * fragment.color * NdotL * attenuation;
-            vec3 specular_color = vec3(1.0) /* * light[i].color */ * pow(NdotR, fragment.specular_power) * attenuation;
+            light[1].position = vec3(0,30,120);
+            light[1].color = vec3(0,0,1);
 
-            result += vec4(diffuse_color + specular_color, 0.0);
+            light[2].position = vec3(60,30,60);
+            light[2].color = vec3(1,0,0);
+
+            light[3].position = vec3(0,30,0);
+            light[3].color = vec3(0,1,0);
+
+            for (i = 0; i < num_lights; i++)
+            {
+                vec3 L = light[i].position - fragment.ws_coord;
+                float dist = length(L);
+                L = normalize(L);
+                vec3 N = normalize(fragment.normal);
+                vec3 R = reflect(-L, N);
+                float NdotR = max(0.0, dot(N, R));
+                float NdotL = max(0.0, dot(N, L));
+                float attenuation = 500.0 / (pow(dist, 2.0) + 1.0);
+
+                vec3 diffuse_color  = 1.0 * light[i].color * fragment.color * NdotL * attenuation;
+                vec3 specular_color = vec3(1.0) * light[i].color * pow(NdotR, fragment.specular_power) * attenuation;
+
+                result += vec4(diffuse_color + specular_color, 0.0);
+            }
+
             break;
-        case 6:
-            //SSAO CABEZA
-
-             break;
     }
 
     return result;
