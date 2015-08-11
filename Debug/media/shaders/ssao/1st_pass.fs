@@ -15,7 +15,7 @@ in VS_OUT
 
 // Material properties
 uniform vec3 ambient = vec3(0.105, 0.105, 0.105);
-uniform vec3 diffuse_albedo = vec3(0.8, 0.8, 0.9);
+uniform vec3 diffuse_albedo = vec3(0.1, 0.1, 0.1);
 uniform vec3 specular_albedo = vec3(0.01);
 uniform float specular_power = 128.0;
 uniform float shading_level = 1.0;
@@ -41,6 +41,8 @@ void main(void)
     //vec3 diffuse = diffuse_albedo; * vec3(0.2,0.2,0.2)
 
     vec3 specular = pow(max(dot(R, V), 0.0), specular_power) * specular_albedo;
+
+    //diffuse = normalize(diffuse + vec3(0.3, 0.1, 0.413));
 
     // Write final color to the framebuffer
     color = mix(vec4(0.0), vec4(ambient + diffuse + specular, 1.0), shading_level);

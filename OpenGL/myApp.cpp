@@ -23,7 +23,7 @@ void myApp::setup()
 
 	/*Material comun = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic_color.fs");*/
 
-	Material dirt = Material("media/shaders/phong/phong_textured.vs", "media/shaders/phong/phong_textured.fs");
+	Material dirt = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 	dirt.setTexture("media/images/dirt.dds");
 
 	//Material brick = Material("media/shaders/basic/basic.vs", "media/shaders/basic/basic.fs");
@@ -35,7 +35,7 @@ void myApp::setup()
 	//Material suba = Material("media/shaders/phong/phong.vs", "media/shaders/phong/phong.fs");
 
 	Material suba2 = Material("media/shaders/sem/sem.vs", "media/shaders/sem/sem.fs");
-	suba2.setTexture("media/images/matcaps/shiny_red.dds");
+	suba2.setTexture("media/images/matcaps/skin.dds");
 
 	//house = new GameObject();
 	//Renderer *myRender = house->addComponent<Renderer>();
@@ -44,7 +44,7 @@ void myApp::setup()
 	//myMesh->loadCOBJ("media/models/rungholt/rungholt.cobj");
 
 	suzanne = new GameObject();
-	suzanne->getComponent<Transform>()->setPosition(20, 30, 30);
+	suzanne->getComponent<Transform>()->setPosition(0, 0, 0);
 	suzanne->getComponent<Transform>()->scale(6);
 	Renderer *suzaRender = suzanne->addComponent<Renderer>();
 	suzaRender->setMaterial(suba2);
@@ -76,8 +76,8 @@ void myApp::setup()
 
 	SuperCam = new GameObject();
 	Transform *myTran = SuperCam->getComponent<Transform>();
-	myTran->setPosition(196.59, 143.11, 239.22);
-	myTran->setLookAt(vec3(196.072, 142.516, 238.603));
+	myTran->setPosition(0, 0, 20);
+	myTran->setLookAt(vec3(0, 0, 0));
 	Camera *myCam = SuperCam->addComponent<Camera>();
 
 	fps = new FPSController(myCam, myTran);
@@ -102,6 +102,9 @@ void myApp::update()
 	//	printf("Name: %s.\n", uni->getName().c_str());
 
 	//}
+	if (Input::getKey("R"))
+		suzanne->getComponent<Renderer>()->reloadMaterials();
+
 
 	fps->update();
 	
